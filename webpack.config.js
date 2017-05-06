@@ -6,11 +6,13 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+var autoprefixer = require('autoprefixer');
+var precss = require('precss');
 
 // replace localhost with 0.0.0.0 if you want to access
 // your app from wifi or a virtual machine
 const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 const sourcePath = path.join(__dirname, './app');
 const buildDirectory = path.join(__dirname, './build');
 
@@ -53,7 +55,8 @@ module.exports = function(env) {
 
     // create css bundle
     new ExtractTextPlugin('style-[contenthash:8].css'),
-
+    //new ExtractTextPlugin("application.css"),
+    
     // create index.html
     new HtmlWebpackPlugin({
       template: './index.ejs',
@@ -80,7 +83,16 @@ module.exports = function(env) {
 
     // preload chunks
     new PreloadWebpackPlugin(),
-  ];
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: __dirname,
+        postcss: [
+          autoprefixer,
+          precss
+        ]
+      }
+    })
+  ]; //EOF plugins
 
   if (isProd) {
     plugins.push(
@@ -122,7 +134,8 @@ module.exports = function(env) {
         },
       ],
     });
-  } else {
+  }  //EOF if(prod) , now start else dev
+  else {
     plugins.push(
       // make hot reloading work
       new webpack.HotModuleReplacementPlugin(),
@@ -152,7 +165,36 @@ module.exports = function(env) {
         },
       },
     ];
-  }
+  } //EOF else (dev)
+ 
+ var PostCssloaders = [
+   'style-loader',
+   {
+     loader: 'css-loader',
+     options: {
+       importLoaders: 1
+     }
+   },
+   'postcss-loader'
+];
+//configure fonts;
+const ModuleRules = {
+	// ...
+	componentStyles: {
+		test: /\.scss$/,
+		loaders: ["style-loader", "css-loader", "sass-loader"],
+		exclude: path.resolve(__dirname, 'src/app')
+	},
+	fonts: {
+		test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+		loader: 'file-loader?name=fonts/[name].[ext]'
+	},
+	images: {
+		test: /\.(png|jpe?g|gif|ico)$/,
+		loader: 'file-loader?name=assets/[name].[ext]'
+	}
+	// ...
+}
 
   if (serviceWorkerBuild) {
     plugins.push(
@@ -204,28 +246,37 @@ module.exports = function(env) {
     },
     module: {
       rules: [
+        // {
+        //   test: /\.(html|svg|jpe?g|png|ttf|woff2?)$/,
+        //   exclude: /node_modules/,
+        //   use: {
+        //     loader: 'file-loader',
+        //     options: {
+        //       name: 'static/[name]-[hash:8].[ext]',
+        //     },
+        //   },
+        // },
         {
-          test: /\.(html|svg|jpe?g|png|ttf|woff2?)$/,
+          test: /\.css$/,
           exclude: /node_modules/,
-          use: {
-            loader: 'file-loader',
-            options: {
-              name: 'static/[name]-[hash:8].[ext]',
-            },
-          },
+          use: PostCssloaders,
         },
         {
           test: /\.scss$/,
           exclude: /node_modules/,
           use: cssLoader,
         },
+        
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: ['babel-loader'],
         },
+        
+        ModuleRules.fonts,
       ],
     },
+   
     resolve: {
       extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
       modules: [path.resolve(__dirname, 'node_modules'), sourcePath],
@@ -253,3 +304,24 @@ module.exports = function(env) {
     },
   };
 };
+
+
+
+// {
+        //   test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        //   loader: "url-loader?limit=10000&mimetype=application/font-woff"
+        // },
+        // {
+        //   test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        //   loader: "file-loader"
+        // },
+        // {
+        //   test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
+        //   loader: 'url'
+        // },
+        //  {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=image/svg+xml'},
+        //      {test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff"},
+        //      {test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff"},
+        //      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/octet-stream"},
+        //      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"},
+ 
