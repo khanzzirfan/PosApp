@@ -7,13 +7,13 @@ class MainSideBarComponent extends Component {
 
         const content = [
             {
-                icon: 'icon-class-name',
-                label: 'Label of Item',
+                icon: 'table', /*icon class name */
+                label: 'Fruit salad',
                 to: '#a-link',
             },
             {
-                icon: 'icon-class-name',
-                label: 'Second Item',
+                icon: 'table',
+                label: 'Vegetables',
                 content: [
                     {
                         icon: 'icon-class-name',

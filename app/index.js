@@ -4,11 +4,13 @@ import React from 'react';
 
 //All css bundle
 //import 'font-awesome/css/font-awesome.css';
-import 'theme/font-awesome/css/font-awesome.css';
 import 'theme/bootstrap/dist/css/bootstrap.css';
+import 'theme/react-metismenu/react-metismenu-standart.css';
+
 import 'theme/sb-admin-2.css';
 //import 'theme/metismenu.scss';
-import 'theme/react-metismenu/react-metismenu-standart.css';
+import 'theme/font-awesome/css/font-awesome.css';
+
 
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';

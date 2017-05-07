@@ -9,20 +9,20 @@ class MainDetailComponent extends Component {
                     <div className="col-lg-8 col-md-6">
                         <div className="row">
                             <div className="col-lg-4 col-md-6">
-                                <MenuItemComponent LinkText="View"
+                                <MenuItemComponent LinkText="Add to cart"
                                     MenuText="Fruit salad"
                                     MenuIconClass="fa fa-compass fa-5x"
                                     MenuColorClass="panel-primary"/>
                             </div>
                             <div className="col-lg-4 col-md-6">
-                                <MenuItemComponent LinkText="View"
+                                <MenuItemComponent LinkText="Add to cart"
                                     MenuText="Tomato salad"
                                     MenuIconClass="fa fa-compass fa-5x"
                                     MenuColorClass="panel-primary"/>
 
                             </div>
                             <div className="col-lg-4 col-md-6">
-                                <MenuItemComponent LinkText="View"
+                                <MenuItemComponent LinkText="Add to cart"
                                     MenuText="Cucumber salad"
                                     MenuIconClass="fa fa-compass fa-5x"
                                     MenuColorClass="panel-primary"/>
@@ -30,20 +30,20 @@ class MainDetailComponent extends Component {
                         </div>
                         <div className="row">
                             <div className="col-lg-4 col-md-6">
-                                <MenuItemComponent LinkText="View"
+                                <MenuItemComponent LinkText="Add to cart"
                                     MenuText="Fruit salad"
                                     MenuIconClass="fa fa-compass fa-5x"
                                     MenuColorClass="panel-primary"/>
                             </div>
                             <div className="col-lg-4 col-md-6">
-                                <MenuItemComponent LinkText="View"
+                                <MenuItemComponent LinkText="Add to cart"
                                     MenuText="Tomato salad"
                                     MenuIconClass="fa fa-compass fa-5x"
                                     MenuColorClass="panel-primary"/>
 
                             </div>
                             <div className="col-lg-4 col-md-6">
-                                <MenuItemComponent LinkText="View"
+                                <MenuItemComponent LinkText="Add to cart"
                                     MenuText="Cucumber salad"
                                     MenuIconClass="fa fa-compass fa-5x"
                                     MenuColorClass="panel-primary"/>
