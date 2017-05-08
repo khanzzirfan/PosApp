@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import CheckoutCartItemComponent from 'components/PosMain/CheckoutCart/CheckoutCartItemComponent';
 
 class MainCheckoutComponent extends Component {
     render() {
@@ -10,29 +11,24 @@ class MainCheckoutComponent extends Component {
                 </div>
                 <div className="panel-body">
                     <div className="list-group">
-                        <a href="#" className="list-group-item">
-                            <div className="row">
-                                <div className="col-lg-6">
-                                    <span> 1. Fruit Salad </span>
-                                </div>
-                                <div className="col-lg-4">
-                                    <span className="pull-right">$40.00</span>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-xs-1">
-                                    <i className="fa fa-plus-square fa-2x">  </i>
-                                </div>
-                                <div className="col-xs-1">
-                                    <i className="fa fa-2x">10 </i>
-                                </div>
-                                <div className="col-xs-1">
-                                    <i className="fa fa-minus-square fa-2x">   </i>
-                                </div>
-                                <div className="col-xs-offset-9">
-                                </div>
-                            </div>
-                        </a>
+                        <CheckoutCartItemComponent 
+                            itemName = {"Fruit salad"}
+                            itemPrice = {"10.00"}
+                            itemQuantity = {5}
+                            itemNumber = {1}
+                        />
+                        <CheckoutCartItemComponent 
+                            itemName = {"Cucumber salad"}
+                            itemPrice = {"10.00"}
+                            itemQuantity = {3}
+                            itemNumber = {2}
+                        />
+                        <CheckoutCartItemComponent 
+                            itemName = {"Tomato salad"}
+                            itemPrice = {"10.00"}
+                            itemQuantity = {9}
+                            itemNumber = {3}
+                        />
                     </div>
                 </div>
             </div>

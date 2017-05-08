@@ -4,8 +4,52 @@ import MainDetailComponent from 'components/PosMain/MainDetailComponent';
 import MainSideBarComponent from 'components/PosMain/MainSideBarComponent';
 
 class PosHomeLayout extends Component {
+    
+    createMenuObject = () => {
+        let menuObject = 
+            {
+                Name: "FruitSalad",
+                Items: [
+                    {
+                        itemName: "Fruit salad",
+                        itemPrice: "$10.00",
+                    },
+                    {
+                        itemName: "Cucumber salad",
+                        itemPrice: "$10.00",
+                    },
+                    {
+                        itemName: "Rose apple salad",
+                        itemPrice: "$10.00",
+                    },
+                    {
+                        itemName: "Pawpaw salad",
+                        itemPrice: "$10.00",
+                    },
+                    {
+                        itemName: "Cucumber salad",
+                        itemPrice: "$10.00",
+                    },
+                    {
+                        itemName: "Rose apple salad",
+                        itemPrice: "$10.00",
+                    },
+                    {
+                        itemName: "Pawpaw salad",
+                        itemPrice: "$10.00",
+                    },
+                ]
+            };
+        return menuObject;
+    }
+
+    
     render() {
         let navStyleMargin = { marginBottom: '0px' }
+        let menuItemObject = this.createMenuObject();
+
+        const {menuObject, onMenuClick} = this.props;
+
         return (
             <div>
                 <nav className="navbar navbar-default navbar-static-top" role="navigation" style={navStyleMargin}>
@@ -20,17 +64,17 @@ class PosHomeLayout extends Component {
                     </div>
 
                     <MainHeaderComponent />
-                    <MainSideBarComponent />
+                    <MainSideBarComponent onMenuClick={onMenuClick}/>
                 </nav>
-                <MainDetailComponent />
-                
+                <MainDetailComponent menuObject={menuItemObject}/>
             </div>
         );
     }
 }
 
 PosHomeLayout.propTypes = {
-
+    menuObject: PropTypes.object,
+    onMenuClick: PropTypes.func,
 };
 
 export default PosHomeLayout;

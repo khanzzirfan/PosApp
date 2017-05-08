@@ -7,17 +7,17 @@ import Reports from 'routes/Reports';
 import POS from 'routes/POS';
 import './style.scss';
 
-{/*<Header />*/}
+{/*<Header />
+  
+      <Route path="/budget" component={Budget} />
+      <Route path="/reports" component={Reports} />
+*/}
 const App = () => (
   <main>
     
-
     <Switch>
-      
-      <Route path="/budget" component={Budget} />
-      <Route path="/reports" component={Reports} />
       <Route path="/pos" component={POS} />
-      <Redirect to="/budget" />
+      <Redirect to="/pos" />
     </Switch>
   </main>
 );
