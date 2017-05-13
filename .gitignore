@@ -3,3 +3,4 @@ static
 .module-cache
 *.log*
 _nogit
+/node_modules
