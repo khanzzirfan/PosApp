@@ -54,7 +54,7 @@ module.exports = function(env) {
     }),
 
     // create css bundle
-    new ExtractTextPlugin('style-[contenthash:8].css'),
+    new ExtractTextPlugin('posapplication.css'),
     //new ExtractTextPlugin("application.css"),
     
     // create index.html
@@ -241,8 +241,8 @@ const ModuleRules = {
     output: {
       path: buildDirectory,
       publicPath: '/',
-      filename: '[name]-[hash:8].js',
-      chunkFilename: '[name]-[chunkhash:8].js',
+      filename: '[name].js',
+      chunkFilename: '[name].js',
     },
     module: {
       rules: [

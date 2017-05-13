@@ -2,10 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import MainHeaderComponent from 'components/PosMain/MainHeaderComponent';
 import MainDetailComponent from 'components/PosMain/MainDetailComponent';
 import MainSideBarComponent from 'components/PosMain/MainSideBarComponent';
+// import NavigationMenu from 'components/PosMain/NavigationMenu';
 
 class PosHomeLayout extends Component {
     
-    createMenuObject = () => {
+    createMenuObject = (menu) => {
         let menuObject = 
             {
                 Name: "FruitSalad",
@@ -40,15 +41,21 @@ class PosHomeLayout extends Component {
                     },
                 ]
             };
+
+        if(menu && menu.Items && menu.Items.length > 0 )
+            return menu;
+
         return menuObject;
     }
 
     
     render() {
         let navStyleMargin = { marginBottom: '0px' }
-        let menuItemObject = this.createMenuObject();
-
         const {menuObject, onMenuClick} = this.props;
+
+        let menuItemObject = this.createMenuObject(menuObject);
+
+        
 
         return (
             <div>
