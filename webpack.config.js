@@ -54,7 +54,7 @@ module.exports = function(env) {
     }),
 
     // create css bundle
-    new ExtractTextPlugin('posapplication.css'),
+    new ExtractTextPlugin('style-[hash:base64:5].css'),
     //new ExtractTextPlugin("application.css"),
     
     // create index.html
