@@ -13,8 +13,6 @@
       "modules": false,
       "loose": true
     }],
-    "stage-0",
-    "es2015",
     "react"
   ],
   "env": {

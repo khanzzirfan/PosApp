@@ -14,12 +14,6 @@ const ERROR_RETRIEVE_POSUSER  = 'ERROR_RETRIEVE_POSUSER';
 /**
  * Reducer
  */
-const initialState = {
-  menuItems:{},
-  isLoading:false,
-}
-
-export default function PosReducer(state = initialState, action) {
-  //if(action.type === "SUBMIT_RETRIEVE_POSUSER")
+export default function PosReducer(state = categoriesById) {
   return state;
 }
