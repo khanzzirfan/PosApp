@@ -65,19 +65,19 @@ class MainSideBarComponent extends Component {
                         itemPrice: "$10.00",
                     },
                     {
-                        itemName: "Pawpaw salad",
+                        itemName: "Veg salad",
                         itemPrice: "$10.00",
                     },
                     {
-                        itemName: "Cucumber salad",
+                        itemName: "Veg salad",
                         itemPrice: "$10.00",
                     },
                     {
-                        itemName: "Rose apple salad",
+                        itemName: "Veg salad",
                         itemPrice: "$10.00",
                     },
                     {
-                        itemName: "Pawpaw salad",
+                        itemName: "Veg salad",
                         itemPrice: "$10.00",
                     },
                 ]
@@ -85,8 +85,9 @@ class MainSideBarComponent extends Component {
         return menuObject;
     }
 
-    handleMenuItemClick(menuType) {
-        let menuObject = menuType =="fruits"? this.createFruitMenuObject():this.createVegeMenuObject();
+    handleMenuItemClick(e) {
+        let menuType = e.target.text;
+        let menuObject = menuType =="Fruit salad"? this.createFruitMenuObject():this.createVegeMenuObject();
         this.props.onMenuClick(menuObject);
     }
 
@@ -97,6 +98,8 @@ class MainSideBarComponent extends Component {
                 icon: 'table', /*icon class name */
                 label: 'Fruit salad',
                 to: '#a-link',
+                Id:"fruitsalad",
+                name:"fuits"
             },
             {
                 icon: 'table',
@@ -104,8 +107,10 @@ class MainSideBarComponent extends Component {
                 content: [
                     {
                         icon: 'icon-class-name',
-                        label: 'Sub Menu of Second Item',
+                        label: 'Leafy vegetables',
                         to: '#another-link',
+                        Id:"leafyveges",
+                        name:"veges"
                     },
                 ],
             },
@@ -125,7 +130,7 @@ class MainSideBarComponent extends Component {
                             </span>
                             </div>
                         </li>
-                            <MetisMenu content={content} LinkComponent={CustomLinkComponent} activeLinkFromLocation/>
+                            <MetisMenu content={content} onSelected={(e)=> {this.handleMenuItemClick(e)} } activeLinkFromLocation/>
                         </ul>
                     </div>
                 </div>
