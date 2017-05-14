@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import getmenuitems from 'containers/Pos/actions/pos-actions';
 import PosHomeLayout from 'components/PosMain/PosHomeLayout';
+import * as TransactionActions from 'containers/Transactions/actions/transaction-actions';
 
 class PosContainer extends Component {
 
@@ -15,7 +16,7 @@ class PosContainer extends Component {
   }
 
   componentDidMount() {
-    
+    this.props.transactionActions.getTransactions();
   }
 
   handleOnClickMenuItem = (menu) =>
@@ -27,13 +28,16 @@ class PosContainer extends Component {
 
   render() {
     
-    const {menuItems, isLoading  } = this.props;
+    const {menuItems, isLoading, transactions  } = this.props;
     console.log(">>> pringint menu items");
     console.log(menuItems);
 
     return (
       <div className="container-wrapper">
-        <PosHomeLayout menuObject ={this.state.menuObject} onMenuClick = {this.handleOnClickMenuItem}/>
+        <PosHomeLayout menuObject ={this.state.menuObject} 
+              onMenuClick = {this.handleOnClickMenuItem}
+              transactions = {transactions}
+              />
       </div>
     );
   }
@@ -42,6 +46,7 @@ class PosContainer extends Component {
 PosContainer.propTypes={
   menuItems: PropTypes.object,
   isLoading: PropTypes.bool,
+  transactions: PropTypes.array,
 
 }
 
@@ -49,12 +54,13 @@ function mapState(state) {
   return {
     menuItems: state.PosReducer.menuItems,
     isLoading: state.PosReducer.isLoading,
+    transactions: state.TransactionReducer.transactions,
   };
 }
 
 function mapDispatch(dispatch) {
   return {
-    //actions: bindActionCreators(TodoActions, dispatch)
+    transactionActions: bindActionCreators(TransactionActions, dispatch)
   };
 }
 

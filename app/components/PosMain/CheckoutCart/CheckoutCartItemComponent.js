@@ -52,7 +52,7 @@ class CheckoutCartItemComponent extends Component {
 CheckoutCartItemComponent.propTypes = {
     itemName: PropTypes.string,
     itemQuantity: PropTypes.number,
-    itemPrice: PropTypes.string,
+    itemPrice: PropTypes.number,
     itemNumber: PropTypes.number,
 }
 

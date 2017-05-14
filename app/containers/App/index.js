@@ -5,6 +5,7 @@ import Header from 'components/Header';
 import Budget from 'routes/Budget';
 import Reports from 'routes/Reports';
 import POS from 'routes/POS';
+import Transaction from 'routes/Transaction';
 import './style.scss';
 
 {/*<Header />
@@ -16,7 +17,7 @@ const App = () => (
   <main>
     
     <Switch>
-      <Route path="/pos" component={POS} />
+      <Route path="/pos" component={POS}/>
       <Redirect to="/pos" />
     </Switch>
   </main>

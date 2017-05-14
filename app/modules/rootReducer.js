@@ -2,6 +2,8 @@
 // Otherwise redux may complain when we asyncrhonously
 // inject reducers.
 import PosReducer from 'containers/Pos/reducers/pos-reducer';
+
+import TransactionReducer from 'containers/Transactions/reducer/transaction-reducer';
 import { combineReducers } from 'redux';
 
 /**
@@ -15,7 +17,8 @@ import { combineReducers } from 'redux';
 //combineReducers
 
 const rootReducer = ({
-  PosReducer
+  PosReducer,
+  TransactionReducer
 });
 
 export default rootReducer;
