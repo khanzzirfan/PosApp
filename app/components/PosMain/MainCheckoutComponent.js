@@ -7,7 +7,7 @@ class MainCheckoutComponent extends Component {
 
     }
 
-    createTransactionList(transactionItem){
+    createTransactionList(transactionItem, onTransactionUpdate){
         let menuName = transactionItem.menuName;
         let price = transactionItem.menuPrice;
         let quantity = transactionItem.quantity;
@@ -18,26 +18,34 @@ class MainCheckoutComponent extends Component {
                             itemName = {menuName}
                             itemPrice = {price}
                             itemQuantity = {quantity}
-                            itemNumber = {transactionId}
+                            transactionId = {transactionId}
+                            onTransactionUpdate = {onTransactionUpdate}
                         />
         );
     }
 
     render() {
-        const {transactions} = this.props;
+        const {transactions,
+               onTransactionUpdate} = this.props;
         
         return (
 
-            <div className="panel panel-default">
+            <div className="chat-panel panel panel-default">
                 <div className="panel-heading">
                     <i className="fa fa-shopping-cart"></i> Shopping cart
                 </div>
                 <div className="panel-body">
                     <div className="list-group">
                         {
+                            transactions.map((e) => this.createTransactionList(e, onTransactionUpdate))
+                        }
+                        {
                             transactions.map(this.createTransactionList)
                         }
                     </div>
+                </div>
+                <div className="panel-footer">
+                    <a href="#" className="btn btn-default btn-block">Check out</a>
                 </div>
             </div>
         );
@@ -46,6 +54,7 @@ class MainCheckoutComponent extends Component {
 
 MainCheckoutComponent.propTypes = {
     transactions: PropTypes.array,
+    onTransactionUpdate: PropTypes.func,
 };
 
 export default MainCheckoutComponent;

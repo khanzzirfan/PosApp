@@ -51,7 +51,10 @@ class PosHomeLayout extends Component {
     
     render() {
         let navStyleMargin = { marginBottom: '0px' }
-        const {menuObject, onMenuClick, transactions} = this.props;
+        const {menuObject,
+            onMenuClick,
+            transactions,
+            onTransactionUpdate} = this.props;
 
         let menuItemObject = this.createMenuObject(menuObject);
 
@@ -74,7 +77,8 @@ class PosHomeLayout extends Component {
                     <MainSideBarComponent onMenuClick={onMenuClick}/>
                 </nav>
                 <MainDetailComponent menuObject={menuItemObject}
-                    transactions ={transactions}/>
+                    transactions ={transactions}
+                    onTransactionUpdate = {onTransactionUpdate}/>
             </div>
         );
     }
@@ -84,6 +88,7 @@ PosHomeLayout.propTypes = {
     menuObject: PropTypes.object,
     onMenuClick: PropTypes.func,
     transactions: PropTypes.array,
+    onTransactionUpdate: PropTypes.func,
 };
 
 export default PosHomeLayout;

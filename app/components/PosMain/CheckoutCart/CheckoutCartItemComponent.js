@@ -1,15 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 
 class CheckoutCartItemComponent extends Component {
+    constructor(){
+        super();
+        this.updateTransaction = this.updateTransaction.bind(this);
+    }
+
+    updateTransaction(transactionId) {
+        
+    }
+
     render() {
         const {
             itemName,
             itemQuantity,
             itemPrice,
-            itemNumber,
+            transactionId,
+            onTransactionUpdate
         } = this.props;
 
-        let formattedName = `${itemNumber}. ${itemName}`;
+        let formattedName = `${transactionId}. ${itemName}`;
         let price = `$${itemPrice}`;        
         let totalAmount = `$${itemPrice * itemQuantity}.00`;
 
@@ -20,7 +30,7 @@ class CheckoutCartItemComponent extends Component {
             <a href="#" className="list-group-item">
                 <div className="row">
                     <div className="col-lg-6 text-left">
-                        <span>{itemNumber}. {itemName}</span>
+                        <span>{transactionId}. {itemName}</span>
                     </div>
                     <div className="col-lg-6 text-right">
                         <span>{price}</span>
@@ -31,7 +41,7 @@ class CheckoutCartItemComponent extends Component {
                         <span>Qty</span>
                     </div>
                     <div className="col-xs-1">
-                        <i className="fa fa-plus-square fa-1x">  </i>
+                        <i className="fa fa-plus-square fa-1x" onClick={updateTransaction(transactionId)}>  </i>
                     </div>
                     <div className="col-xs-1">
                         <i className="fa fa-1x">{itemQuantity} </i>
@@ -53,7 +63,8 @@ CheckoutCartItemComponent.propTypes = {
     itemName: PropTypes.string,
     itemQuantity: PropTypes.number,
     itemPrice: PropTypes.number,
-    itemNumber: PropTypes.number,
+    transactionId: PropTypes.number,
+    onTransactionUpdate: PropTypes.func,
 }
 
 export default CheckoutCartItemComponent 

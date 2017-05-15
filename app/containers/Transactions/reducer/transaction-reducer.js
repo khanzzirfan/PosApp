@@ -24,6 +24,24 @@ export default function TransactionReducer(state = initialState, action) {
                 isLoading:false,
                 transactions: transactionsStubData,
             }
+        
+        case SUBMIT_UPDATE_TRANSACTIONS:{
+            return {
+                isLoading: true,
+                tranactions: [],
+            }
+        }
+
+        case FINISH_UPDATE_TRANSACTIONS:{
+            let transactionId = action.transactionItem.transactionId;
+            let filteredTransactions = transactions.filter( e => e.transactionId !== transactionId);
+            filteredTransactions.push(action.transactionItem);
+
+            return {
+                isLoading: false,
+                tranactions: filteredTransactions,
+            }
+        }
 
         default:
             return state;

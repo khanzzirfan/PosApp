@@ -6,13 +6,20 @@ import PosHomeLayout from 'components/PosMain/PosHomeLayout';
 import * as TransactionActions from 'containers/Transactions/actions/transaction-actions';
 
 class PosContainer extends Component {
-
   constructor() {
     super();
+
     let dummyObject = {};
     this.state = {
       menuObject: dummyObject,
     };
+
+    //setup bindings;
+    this.handleUpdateTransactionItem = this.handleUpdateTransactionItem.bind(this);
+  }
+
+  handleUpdateTransactionItem(transactionItem){
+    this.props.transactionActions.updateTransaction(transactionItem);
   }
 
   componentDidMount() {
@@ -37,6 +44,7 @@ class PosContainer extends Component {
         <PosHomeLayout menuObject ={this.state.menuObject} 
               onMenuClick = {this.handleOnClickMenuItem}
               transactions = {transactions}
+              onTransactionUpdate = {handleUpdateTransactionItem}
               />
       </div>
     );

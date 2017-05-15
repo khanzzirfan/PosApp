@@ -11,10 +11,26 @@ function submitGetTransactions() {
     }
 }
 
-function finishGetTransactions(transactionItems) {
+function finishGetTransactions() {
     return {
-        transactions: transactionItems,
+        transactions: [],
         type: FINISH_GET_TRANSACTIONS
+    }
+}
+
+/*Update transactions */
+function submitUpdateTransaction(transactionItem){
+    return{
+        transactionItem:transactionItem,
+        type: SUBMIT_UPDATE_TRANSACTIONS
+    }
+}
+
+/*Update transactions */
+function finishUpdateTransaction(transactionItem){
+    return{
+        transactionItem:transactionItem,
+        type: FINISH_UPDATE_TRANSACTIONS
     }
 }
 
@@ -22,5 +38,12 @@ export function getTransactions(){
     return (dispatch, getState) => {
             dispatch(submitGetTransactions());
             dispatch(finishGetTransactions());
+    }
+}
+
+export function updateTransaction(transactionItem){
+    return (dispatch, getState) => {
+            dispatch(submitUpdateTransaction(transactionItem));
+            dispatch(finishUpdateTransaction(transactionItem));
     }
 }

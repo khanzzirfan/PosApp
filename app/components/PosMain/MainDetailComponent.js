@@ -37,7 +37,7 @@ class MainDetailComponent extends Component {
     }
 
     render() {
-        const { menuObject, transactions } = this.props;
+        const { menuObject, transactions, onTransactionUpdate } = this.props;
         let createMenuDetailComponent = this.createMenuDetailComponent(menuObject);
 
         return (
@@ -49,7 +49,8 @@ class MainDetailComponent extends Component {
                         </div>
                     </div>
                     <div className="col-lg-4 col-md-6">
-                        <MainCheckoutComponent transactions ={transactions}/>
+                        <MainCheckoutComponent transactions ={transactions}
+                            onTransactionUpdate = {onTransactionUpdate}/>
                     </div>
                 </div>
             </div>
@@ -60,6 +61,7 @@ class MainDetailComponent extends Component {
 MainDetailComponent.propTypes = {
     menuObject: PropTypes.object,
     transactions: PropTypes.array,
+    onTransactionUpdate: PropTypes.func,
 };
 
 export default MainDetailComponent;
