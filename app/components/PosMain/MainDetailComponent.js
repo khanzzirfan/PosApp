@@ -8,9 +8,9 @@ class MainDetailComponent extends Component {
         //this.handleOnAddItem = this.handleOnAddItem.bind(this);
     }
     /**Update checkout transaction item quantity */
-    handleOnTransactionUpdate = () => {
+    handleOnTransactionUpdate = (transactionItem) => {
         if(this.props.onTransactionUpdate){
-            this.props.onTransactionUpdate();
+            this.props.onTransactionUpdate(transactionItem);
         }
     }
 

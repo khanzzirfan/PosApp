@@ -14,6 +14,14 @@ class PosHomeLayout extends Component {
         this.props.onToggleSideNavClick();
     }
 
+    /**Update checkout transaction item quantity */
+    handleOnTransactionUpdate = (transactionItem) => {
+        if(this.props.onTransactionUpdate){
+            this.props.onTransactionUpdate(transactionItem);
+        }
+    }
+
+
     /*Add menu item to checkout component */
     handleOnMenuItemAdd = () => {
         if(this.props.onTransactionUpdate){
@@ -98,7 +106,7 @@ class PosHomeLayout extends Component {
                 <MainDetailComponent 
                     menuObject={menuItemObject}
                     transactions ={transactions}
-                    onTransactionUpdate = {onTransactionUpdate}/>
+                    onTransactionUpdate = {this.handleOnTransactionUpdate}/>
             </div>
         );
     }

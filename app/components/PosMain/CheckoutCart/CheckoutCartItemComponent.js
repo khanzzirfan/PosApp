@@ -22,6 +22,9 @@ class CheckoutCartItemComponent extends Component {
         this.setState({
             itemQuantity: itemQuantity
         });
+        
+        //update the reducer store;
+        this.updateTransaction(itemQuantity);
     }
 
     onRemoveMenuItem = (transactionId) =>{
@@ -34,8 +37,15 @@ class CheckoutCartItemComponent extends Component {
         });
     }
 
-    updateTransaction = () => {
-        //this.props.onTransactionUpdate(transactionId);
+    updateTransaction = (itemQuantity) => {
+        let transactionItem = {
+            transactionId: this.state.transactionId,
+            menuPrice: this.state.itemPrice,
+            quantity: itemQuantity,
+            menuName: this.state.itemName
+        }
+
+        this.props.onTransactionUpdate(transactionItem);
     }
 
     componentDidMount(){

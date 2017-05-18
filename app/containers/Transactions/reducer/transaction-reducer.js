@@ -5,6 +5,7 @@ import {SUBMIT_GET_TRANSACTIONS,
          } from 'containers/Transactions/actions/transaction-action-types';
 
 import transactionsStubData from 'containers/Transactions/data/transaction-data';
+import _ from 'lodash';
 
 const initialState ={
     transactions: [],
@@ -27,8 +28,8 @@ export default function TransactionReducer(state = initialState, action) {
         
         case SUBMIT_UPDATE_TRANSACTIONS:{
             return {
+                ...state,
                 isLoading: true,
-                transactions: [],
             }
         }
 
@@ -36,6 +37,7 @@ export default function TransactionReducer(state = initialState, action) {
             let transactionId = action.transactionItem.transactionId;
             let filteredTransactions = state.transactions.filter( e => e.transactionId !== transactionId);
             filteredTransactions.push(action.transactionItem);
+            filteredTransactions = _.orderBy(filteredTransactions, ['transactionId']);
 
             return {
                 isLoading: false,

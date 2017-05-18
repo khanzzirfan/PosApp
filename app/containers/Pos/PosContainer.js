@@ -23,6 +23,8 @@ class PosContainer extends Component {
   }
 
   handleUpdateTransactionItem = (transactionItem) => {
+    console.log(">>> updating transaction item");
+    console.log(transactionItem)
     this.props.transactionActions.updateTransaction(transactionItem);
   }
 
