@@ -110,8 +110,8 @@ class CheckoutCartItemComponent extends Component {
                                 <span className="fa fa-minus-square fa-1x"></span>
                             </button>
                         </div>
-                        <div className="col-xs-7 text-right">
-                            <span>Amount <i>{totalAmount}</i></span>
+                        <div className=" text-right">
+                            <span><i>Amount {totalAmount}</i></span>
                         </div>
                     </div>
                 </a>

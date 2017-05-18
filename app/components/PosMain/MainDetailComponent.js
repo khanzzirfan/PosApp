@@ -24,7 +24,7 @@ class MainDetailComponent extends Component {
 
     createMenuComponent(menuText, index) {
         return (
-            <div key={index} className="col-lg-4 col-md-6">
+            <div key={index} className="col-lg-3 col-md-6">
                 <MenuItemComponent LinkText="Add to cart"
                     MenuText={menuText}
                     MenuIconClass="fa fa-compass fa-5x"
@@ -34,7 +34,7 @@ class MainDetailComponent extends Component {
     }
 
     createMenuDetailComponent(menuObject) {
-        let menuArrayObject = this.createGroupedArray(menuObject.Items, 3);
+        let menuArrayObject = this.createGroupedArray(menuObject.Items, 4);
         let menuDetailReactElement  = menuArrayObject.map((itemSubArray, index) => {
             return (
                 <div key = {`menuItemKey${index}`} className="row">
