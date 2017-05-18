@@ -4,6 +4,7 @@ import React from 'react';
 
 //All css bundle
 //import 'font-awesome/css/font-awesome.css';
+//import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import 'theme/bootstrap/dist/css/bootstrap.css';
 import 'theme/react-metismenu/react-metismenu-standart.css';
 

@@ -115,10 +115,16 @@ class MainSideBarComponent extends Component {
                 ],
             },
         ];
+        const {isMobile, toggleSideNav} = this.props;
+        console.log(">>> renering mobile version " + isMobile);
+        let navBarCollapse = `sidebar-nav navbar-collapse ${isMobile? 'collapse':''}`;
+        let navBarOpened = toggleSideNav ? navBarCollapse + " in" : navBarCollapse;
+        let ariaExpanded = toggleSideNav ? "true": "false";
+        let divStyle = toggleSideNav ? {}: {height:'1px'};
 
         return (
             <div className="navbar-default sidebar" role="navigation">
-                    <div className="sidebar-nav navbar-collapse">
+                    <div className={navBarOpened} aria-expanded={ariaExpanded} style={divStyle}>
                         <ul className="nav" id="side-menu">
                         <li className="sidebar-search">
                             <div className="input-group custom-search-form">
@@ -140,6 +146,8 @@ class MainSideBarComponent extends Component {
 
 MainSideBarComponent.propTypes = {
     onMenuClick: PropTypes.func,
+    isMobile: PropTypes.bool,
+    toggleSideNav: PropTypes.bool
 };
 
 export default MainSideBarComponent;

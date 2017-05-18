@@ -1,13 +1,69 @@
 import React, { Component, PropTypes } from 'react';
 
 class CheckoutCartItemComponent extends Component {
-    constructor(){
-        super();
-        this.updateTransaction = this.updateTransaction.bind(this);
+    constructor(props, context){
+        super(props, context);
+     
+        //local state for each transaction item;
+        this.state={
+            transactionId :0,
+            itemQuantity:0,
+            itemName:'',
+            itemPrice:0.00,
+        } 
+
     }
 
-    updateTransaction(transactionId) {
+    onAddMenuItem = (transactionId) => {
+        console.log(">>> adding item and priting state " );
+        console.log(this.state);
         
+        let itemQuantity = this.state.itemQuantity + 1;
+        this.setState({
+            itemQuantity: itemQuantity
+        });
+    }
+
+    onRemoveMenuItem = (transactionId) =>{
+        console.log(">>> removing item and priting state " );
+        console.log(this.state);
+        
+        let itemQuantity = this.state.itemQuantity - 1;
+        this.setState({
+            itemQuantity: itemQuantity
+        });
+    }
+
+    updateTransaction = () => {
+        //this.props.onTransactionUpdate(transactionId);
+    }
+
+    componentDidMount(){
+        let transactionId = this.props.transactionId;
+        let itemPrice = this.props.itemPrice;
+        let itemQuantity = this.props.itemQuantity;
+        let itemName = this.props.itemName;
+
+        this.setState({
+            transactionId: transactionId,
+            itemPrice: itemPrice,
+            itemQuantity: itemQuantity,
+            itemName: itemName
+        });
+    }
+
+    componentWillReceiveProps(nextProps){
+        // let transactionId = nextProps.transactionId;
+        // let itemPrice = nextProps.itemPrice;
+        // let itemQuantity = nextProps.itemQuantity;
+        // let itemName = nextProps.itemName;
+
+        //  this.setState({
+        //     transactionId: transactionId,
+        //     itemPrice: itemPrice,
+        //     itemQuantity: itemQuantity,
+        //     itemName: itemName
+        // });
     }
 
     render() {
@@ -20,41 +76,46 @@ class CheckoutCartItemComponent extends Component {
         } = this.props;
 
         let formattedName = `${transactionId}. ${itemName}`;
-        let price = `$${itemPrice}`;        
-        let totalAmount = `$${itemPrice * itemQuantity}.00`;
+        let price = `$${this.state.itemPrice}`;        
+        let totalAmount = `$${this.state.itemPrice * this.state.itemQuantity}.00`;
 
         let itemQuantityrowSeperate = {marginTop:"6px"};
         let itemNamePaddingLeft = {paddingLeft:"0px"};
+
         return (
-        <div>
-            <a href="#" className="list-group-item">
-                <div className="row">
-                    <div className="col-lg-6 text-left">
-                        <span>{transactionId}. {itemName}</span>
+            <div>
+                <a className="list-group-item">
+                    <div className="row">
+                        <div className="col-lg-6 text-left">
+                            <span>{transactionId}. {itemName}</span>
+                        </div>
+                        <div className="col-lg-6 text-right">
+                            <span>{price}</span>
+                        </div>
                     </div>
-                    <div className="col-lg-6 text-right">
-                        <span>{price}</span>
+                    <div className="row">
+                        <div className="col-xs-1">
+                            <span>Qty</span>
+                        </div>
+                        <div className="col-xs-1">
+                            <button type="button" className="btn btn-xs" onClick={this.onAddMenuItem}>
+                                <span className="fa fa-plus-square fa-1x"></span>
+                            </button>
+                        </div>
+                        <div className="col-xs-1">
+                            <i className="fa fa-1x">{this.state.itemQuantity} </i>
+                        </div>
+                        <div className="col-xs-1">
+                            <button type="button" className="btn btn-xs" onClick={this.onRemoveMenuItem}>
+                                <span className="fa fa-minus-square fa-1x"></span>
+                            </button>
+                        </div>
+                        <div className="col-xs-7 text-right">
+                            <span>Amount <i>{totalAmount}</i></span>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-xs-1">
-                        <span>Qty</span>
-                    </div>
-                    <div className="col-xs-1">
-                        <i className="fa fa-plus-square fa-1x" onClick={updateTransaction(transactionId)}>  </i>
-                    </div>
-                    <div className="col-xs-1">
-                        <i className="fa fa-1x">{itemQuantity} </i>
-                    </div>
-                    <div className="col-xs-1">
-                        <i className="fa fa-minus-square fa-1x">   </i>
-                    </div>
-                    <div className="col-xs-7 text-right">
-                        <span>Amount <i>{totalAmount}</i></span> 
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
         );
     }
 }

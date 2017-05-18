@@ -5,7 +5,22 @@ import MainSideBarComponent from 'components/PosMain/MainSideBarComponent';
 // import NavigationMenu from 'components/PosMain/NavigationMenu';
 
 class PosHomeLayout extends Component {
-    
+    constructor(props) {
+        super(props);
+        
+    }
+
+    handleOnToggleClick = () => {
+        this.props.onToggleSideNavClick();
+    }
+
+    /*Add menu item to checkout component */
+    handleOnMenuItemAdd = () => {
+        if(this.props.onTransactionUpdate){
+            this.props.onTransactionUpdate();
+        }
+    }
+
     createMenuObject = (menu) => {
         let menuObject = 
             {
@@ -54,17 +69,22 @@ class PosHomeLayout extends Component {
         const {menuObject,
             onMenuClick,
             transactions,
-            onTransactionUpdate} = this.props;
+            onTransactionUpdate,
+            isMobile,
+            toggleSideNav} = this.props;
 
         let menuItemObject = this.createMenuObject(menuObject);
-
+        console.log(">>> printing pos home layout");
         
 
         return (
             <div>
                 <nav className="navbar navbar-default navbar-static-top" role="navigation" style={navStyleMargin}>
                     <div className="navbar-header">
-                        <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <button type="button" onClick={this.handleOnToggleClick}
+                            className="navbar-toggle"
+                            data-toggle="collapse"
+                            data-target=".navbar-collapse">
                             <span className="sr-only">Toggle navigation</span>
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
@@ -72,11 +92,11 @@ class PosHomeLayout extends Component {
                         </button>
                         <a className="navbar-brand" href="index.html">Pos v2.0</a>
                     </div>
-
                     <MainHeaderComponent />
                     <MainSideBarComponent onMenuClick={onMenuClick}/>
                 </nav>
-                <MainDetailComponent menuObject={menuItemObject}
+                <MainDetailComponent 
+                    menuObject={menuItemObject}
                     transactions ={transactions}
                     onTransactionUpdate = {onTransactionUpdate}/>
             </div>
@@ -84,11 +104,15 @@ class PosHomeLayout extends Component {
     }
 }
 
+
 PosHomeLayout.propTypes = {
     menuObject: PropTypes.object,
     onMenuClick: PropTypes.func,
     transactions: PropTypes.array,
     onTransactionUpdate: PropTypes.func,
+    isMobile: PropTypes.bool,
+    toggleSideNav: PropTypes.bool,
+    onToggleSideNavClick: PropTypes.func,
 };
 
 export default PosHomeLayout;

@@ -21,7 +21,7 @@ class MenuItemComponent extends Component {
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    <a>
                         <div className="panel-footer">
                             <span className="pull-left">{LinkText}</span>
                             <span className="pull-right"><i><em>$10.00</em></i></span>

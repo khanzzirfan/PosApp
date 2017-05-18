@@ -7,7 +7,14 @@ class MainCheckoutComponent extends Component {
 
     }
 
-    createTransactionList(transactionItem, onTransactionUpdate){
+    /**Update nesteed checkout transaction item quantity */
+    handleOnTransactionUpdate = () => {
+        if(this.props.onTransactionUpdate){
+            this.props.onTransactionUpdate();
+        }
+    }
+
+    createTransactionList = (transactionItem, onTransactionUpdate) => {
         let menuName = transactionItem.menuName;
         let price = transactionItem.menuPrice;
         let quantity = transactionItem.quantity;
@@ -19,7 +26,7 @@ class MainCheckoutComponent extends Component {
                             itemPrice = {price}
                             itemQuantity = {quantity}
                             transactionId = {transactionId}
-                            onTransactionUpdate = {onTransactionUpdate}
+                            onTransactionUpdate = {this.handleOnTransactionUpdate}
                         />
         );
     }
@@ -27,6 +34,7 @@ class MainCheckoutComponent extends Component {
     render() {
         const {transactions,
                onTransactionUpdate} = this.props;
+               
         
         return (
 
@@ -36,12 +44,10 @@ class MainCheckoutComponent extends Component {
                 </div>
                 <div className="panel-body">
                     <div className="list-group">
-                        {
+                        { transactions.length > 0 &&
                             transactions.map((e) => this.createTransactionList(e, onTransactionUpdate))
                         }
-                        {
-                            transactions.map(this.createTransactionList)
-                        }
+                        
                     </div>
                 </div>
                 <div className="panel-footer">

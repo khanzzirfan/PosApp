@@ -28,18 +28,18 @@ export default function TransactionReducer(state = initialState, action) {
         case SUBMIT_UPDATE_TRANSACTIONS:{
             return {
                 isLoading: true,
-                tranactions: [],
+                transactions: [],
             }
         }
 
         case FINISH_UPDATE_TRANSACTIONS:{
             let transactionId = action.transactionItem.transactionId;
-            let filteredTransactions = transactions.filter( e => e.transactionId !== transactionId);
+            let filteredTransactions = state.transactions.filter( e => e.transactionId !== transactionId);
             filteredTransactions.push(action.transactionItem);
 
             return {
                 isLoading: false,
-                tranactions: filteredTransactions,
+                transactions: filteredTransactions,
             }
         }
 

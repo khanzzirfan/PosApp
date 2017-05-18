@@ -2,6 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import MainCheckoutComponent from 'components/PosMain/MainCheckoutComponent';
 import MenuItemComponent from 'components/PosMain/MenuItems/MenuItemComponent';
 class MainDetailComponent extends Component {
+    constructor(props){
+        super(props);
+
+        //this.handleOnAddItem = this.handleOnAddItem.bind(this);
+    }
+    /**Update checkout transaction item quantity */
+    handleOnTransactionUpdate = () => {
+        if(this.props.onTransactionUpdate){
+            this.props.onTransactionUpdate();
+        }
+    }
 
     createGroupedArray(arr, chunkSize) {
         var groups = [], i;
@@ -26,7 +37,7 @@ class MainDetailComponent extends Component {
         let menuArrayObject = this.createGroupedArray(menuObject.Items, 3);
         let menuDetailReactElement  = menuArrayObject.map((itemSubArray, index) => {
             return (
-                <div key = {`menuItemKey${index}`}className="row">
+                <div key = {`menuItemKey${index}`} className="row">
                     {itemSubArray.map( (item, index) => {
                         return this.createMenuComponent(item.itemName, index);
                     })}
@@ -50,7 +61,7 @@ class MainDetailComponent extends Component {
                     </div>
                     <div className="col-lg-4 col-md-6">
                         <MainCheckoutComponent transactions ={transactions}
-                            onTransactionUpdate = {onTransactionUpdate}/>
+                            onTransactionUpdate = {this.handleOnTransactionUpdate}/>
                     </div>
                 </div>
             </div>

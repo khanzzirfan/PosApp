@@ -6,19 +6,23 @@ import PosHomeLayout from 'components/PosMain/PosHomeLayout';
 import * as TransactionActions from 'containers/Transactions/actions/transaction-actions';
 
 class PosContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     let dummyObject = {};
     this.state = {
       menuObject: dummyObject,
+      width: window.innerWidth, /**decide mobile width */
+      toggleSideNav: false,
     };
 
     //setup bindings;
-    this.handleUpdateTransactionItem = this.handleUpdateTransactionItem.bind(this);
+    //this.handleUpdateTransactionItem = this.handleUpdateTransactionItem.bind(this);
+    this.handleOnToggleSideNavClick = this.handleOnToggleSideNavClick.bind(this);
+    //this.handleOnClickMenuItem = this.handleOnClickMenuItem.bind(this);
   }
 
-  handleUpdateTransactionItem(transactionItem){
+  handleUpdateTransactionItem = (transactionItem) => {
     this.props.transactionActions.updateTransaction(transactionItem);
   }
 
@@ -26,8 +30,26 @@ class PosContainer extends Component {
     this.props.transactionActions.getTransactions();
   }
 
-  handleOnClickMenuItem = (menu) =>
-  {
+  componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  // make sure to remove the listener
+  // when the component is not mounted anymore
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
+  };
+
+  handleOnToggleSideNavClick = () => {
+    console.log(">>> handleOnToggleSideNavClick");
+    this.setState({toggleSideNav: !this.state.toggleSideNav});
+  }
+
+  handleOnClickMenuItem = (menu) =>  {
     console.log(">>>>>> menu item click");
     console.log(menu);
     this.setState({menuObject: menu});
@@ -38,13 +60,17 @@ class PosContainer extends Component {
     const {menuItems, isLoading, transactions  } = this.props;
     console.log(">>> pringint menu items");
     console.log(menuItems);
+    const { width, toggleSideNav } = this.state;
+    const isMobile = width <= 768;
 
     return (
       <div className="container-wrapper">
         <PosHomeLayout menuObject ={this.state.menuObject} 
               onMenuClick = {this.handleOnClickMenuItem}
               transactions = {transactions}
-              onTransactionUpdate = {handleUpdateTransactionItem}
+              onTransactionUpdate = {this.handleUpdateTransactionItem}
+              isMobile = {isMobile}
+              toggleSideNav = {this.state.toggleSideNav}
               />
       </div>
     );
