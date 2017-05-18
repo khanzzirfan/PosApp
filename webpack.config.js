@@ -271,6 +271,7 @@ const ModuleRules = {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: ['babel-loader'],
+          //loaders: ['babel-loader?presets[]=es2015,presets[]=react'],
         },
         
         ModuleRules.fonts,

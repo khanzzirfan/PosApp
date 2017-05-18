@@ -83,7 +83,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0b8ba9905d8fc47b0c51"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e1aea7138d9c8524278d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -45939,6 +45939,10 @@ var _POS = __webpack_require__("./routes/POS/index.js");
 
 var _POS2 = _interopRequireDefault(_POS);
 
+var _Transaction = __webpack_require__("./routes/Transaction/index.js");
+
+var _Transaction2 = _interopRequireDefault(_Transaction);
+
 __webpack_require__("./containers/App/style.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -46143,6 +46147,190 @@ var _temp = function () {
 
 /***/ }),
 
+/***/ "./containers/Transactions/actions/transaction-action-types.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var SUBMIT_GET_TRANSACTIONS = exports.SUBMIT_GET_TRANSACTIONS = 'SUBMIT_GET_TRANSACTIONS';
+var FINISH_GET_TRANSACTIONS = exports.FINISH_GET_TRANSACTIONS = 'FINISH_GET_TRANSACTIONS';
+
+var SUBMIT_UPDATE_TRANSACTIONS = exports.SUBMIT_UPDATE_TRANSACTIONS = 'SUBMIT_UPDATE_TRANSACTIONS';
+
+var FINISH_UPDATE_TRANSACTIONS = exports.FINISH_UPDATE_TRANSACTIONS = 'FINISH_UPDATE_TRANSACTIONS';
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SUBMIT_GET_TRANSACTIONS, 'SUBMIT_GET_TRANSACTIONS', 'C:/Github/iPos/app/containers/Transactions/actions/transaction-action-types.js');
+
+  __REACT_HOT_LOADER__.register(FINISH_GET_TRANSACTIONS, 'FINISH_GET_TRANSACTIONS', 'C:/Github/iPos/app/containers/Transactions/actions/transaction-action-types.js');
+
+  __REACT_HOT_LOADER__.register(SUBMIT_UPDATE_TRANSACTIONS, 'SUBMIT_UPDATE_TRANSACTIONS', 'C:/Github/iPos/app/containers/Transactions/actions/transaction-action-types.js');
+
+  __REACT_HOT_LOADER__.register(FINISH_UPDATE_TRANSACTIONS, 'FINISH_UPDATE_TRANSACTIONS', 'C:/Github/iPos/app/containers/Transactions/actions/transaction-action-types.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./containers/Transactions/data/transaction-data.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var transactionsStubData = [, {
+    menuName: "custard",
+    menuPrice: 10.00,
+    quantity: 3,
+    transactionId: 1
+}, {
+    menuName: "paw paw",
+    menuPrice: 20.00,
+    quantity: 3,
+    transactionId: 2
+}, {
+    menuName: "bitter gaurd",
+    menuPrice: 12.00,
+    quantity: 3,
+    transactionId: 3
+}, {
+    menuName: "tomatoes",
+    menuPrice: 10.00,
+    quantity: 3,
+    transactionId: 4
+}, {
+    menuName: "beetroot salad",
+    menuPrice: 10.00,
+    quantity: 3,
+    transactionId: 5
+}, {
+    menuName: "mix fruits",
+    menuPrice: 15.00,
+    quantity: 3,
+    transactionId: 6
+}, {
+    menuName: "wallnuts",
+    menuPrice: 10.00,
+    quantity: 3,
+    transactionId: 7
+}];
+
+var _default = transactionsStubData;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(transactionsStubData, "transactionsStubData", "C:/Github/iPos/app/containers/Transactions/data/transaction-data.js");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "C:/Github/iPos/app/containers/Transactions/data/transaction-data.js");
+}();
+
+;
+
+/***/ }),
+
+/***/ "./containers/Transactions/reducer/transaction-reducer.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = TransactionReducer;
+
+var _transactionActionTypes = __webpack_require__("./containers/Transactions/actions/transaction-action-types.js");
+
+var _transactionData = __webpack_require__("./containers/Transactions/data/transaction-data.js");
+
+var _transactionData2 = _interopRequireDefault(_transactionData);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+    transactions: [],
+    isLoadingTransactions: false
+};
+
+function TransactionReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _transactionActionTypes.SUBMIT_GET_TRANSACTIONS:
+            return _extends({}, state, {
+                isLoading: true
+            });
+
+        case _transactionActionTypes.FINISH_GET_TRANSACTIONS:
+            return {
+                isLoading: false,
+                transactions: _transactionData2.default
+            };
+
+        case _transactionActionTypes.SUBMIT_UPDATE_TRANSACTIONS:
+            {
+                return {
+                    isLoading: true,
+                    tranactions: []
+                };
+            }
+
+        case _transactionActionTypes.FINISH_UPDATE_TRANSACTIONS:
+            {
+                var transactionId = action.transactionItem.transactionId;
+                var filteredTransactions = transactions.filter(function (e) {
+                    return e.transactionId !== transactionId;
+                });
+                filteredTransactions.push(action.transactionItem);
+
+                return {
+                    isLoading: false,
+                    tranactions: filteredTransactions
+                };
+            }
+
+        default:
+            return state;
+    }
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(initialState, 'initialState', 'C:/Github/iPos/app/containers/Transactions/reducer/transaction-reducer.js');
+
+    __REACT_HOT_LOADER__.register(TransactionReducer, 'TransactionReducer', 'C:/Github/iPos/app/containers/Transactions/reducer/transaction-reducer.js');
+}();
+
+;
+
+/***/ }),
+
 /***/ "./images/mclogo.svg":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -46190,6 +46378,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 //All css bundle
 //import 'font-awesome/css/font-awesome.css';
+//import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 var renderApp = function renderApp(Component) {
   _reactDom2.default.render(_react2.default.createElement(
     _reactRedux.Provider,
@@ -46244,6 +46433,10 @@ var _posReducer = __webpack_require__("./containers/Pos/reducers/pos-reducer.js"
 
 var _posReducer2 = _interopRequireDefault(_posReducer);
 
+var _transactionReducer = __webpack_require__("./containers/Transactions/reducer/transaction-reducer.js");
+
+var _transactionReducer2 = _interopRequireDefault(_transactionReducer);
+
 var _redux = __webpack_require__("../node_modules/redux/es/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -46258,13 +46451,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // };
 //combineReducers
 
-// Empty placeholder to reserve reducer namespace.
+var rootReducer = {
+  PosReducer: _posReducer2.default,
+  TransactionReducer: _transactionReducer2.default
+}; // Empty placeholder to reserve reducer namespace.
 // Otherwise redux may complain when we asyncrhonously
 // inject reducers.
-var rootReducer = {
-  PosReducer: _posReducer2.default
-};
-
 var _default = rootReducer;
 exports.default = _default;
 ;
@@ -46467,6 +46659,77 @@ var _temp = function () {
   __REACT_HOT_LOADER__.register(Reports, 'Reports', 'C:/Github/iPos/app/routes/Reports/index.js');
 
   __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Github/iPos/app/routes/Reports/index.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./routes/Transaction/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__("../node_modules/react/react.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Chunk = __webpack_require__("./components/Chunk/index.js");
+
+var _Chunk2 = _interopRequireDefault(_Chunk);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var loadTransactionContainer = function loadTransactionContainer() {
+  return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, "./containers/Transactions/TransactionContainer.js"));
+};
+
+var Transaction = function (_Component) {
+  _inherits(Transaction, _Component);
+
+  function Transaction() {
+    _classCallCheck(this, Transaction);
+
+    return _possibleConstructorReturn(this, (Transaction.__proto__ || Object.getPrototypeOf(Transaction)).apply(this, arguments));
+  }
+
+  _createClass(Transaction, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(_Chunk2.default, { load: loadTransactionContainer });
+    }
+  }]);
+
+  return Transaction;
+}(_react.Component);
+
+var _default = Transaction;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(loadTransactionContainer, 'loadTransactionContainer', 'C:/Github/iPos/app/routes/Transaction/index.js');
+
+  __REACT_HOT_LOADER__.register(Transaction, 'Transaction', 'C:/Github/iPos/app/routes/Transaction/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Github/iPos/app/routes/Transaction/index.js');
 }();
 
 ;

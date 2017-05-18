@@ -50,6 +50,7 @@
     "preload-webpack-plugin": "^1.2.2",
     "prettier": "1.2.2",
     "pushstate-server": "3.0.0",
+    "react-bootstrap": "^0.31.0",
     "react-metismenu": "^1.3.0-alpha.3",
     "rimraf": "2.6.1",
     "sass-loader": "6.0.2",

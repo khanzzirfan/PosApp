@@ -2518,20 +2518,27 @@ var CheckoutCartItemComponent = function (_Component) {
     function CheckoutCartItemComponent() {
         _classCallCheck(this, CheckoutCartItemComponent);
 
-        return _possibleConstructorReturn(this, (CheckoutCartItemComponent.__proto__ || Object.getPrototypeOf(CheckoutCartItemComponent)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (CheckoutCartItemComponent.__proto__ || Object.getPrototypeOf(CheckoutCartItemComponent)).call(this));
+
+        _this.updateTransaction = _this.updateTransaction.bind(_this);
+        return _this;
     }
 
     _createClass(CheckoutCartItemComponent, [{
+        key: "updateTransaction",
+        value: function updateTransaction(transactionId) {}
+    }, {
         key: "render",
         value: function render() {
             var _props = this.props,
                 itemName = _props.itemName,
                 itemQuantity = _props.itemQuantity,
                 itemPrice = _props.itemPrice,
-                itemNumber = _props.itemNumber;
+                transactionId = _props.transactionId,
+                onTransactionUpdate = _props.onTransactionUpdate;
 
 
-            var formattedName = itemNumber + ". " + itemName;
+            var formattedName = transactionId + ". " + itemName;
             var price = "$" + itemPrice;
             var totalAmount = "$" + itemPrice * itemQuantity + ".00";
 
@@ -2552,7 +2559,7 @@ var CheckoutCartItemComponent = function (_Component) {
                             _react2.default.createElement(
                                 "span",
                                 null,
-                                itemNumber,
+                                transactionId,
                                 ". ",
                                 itemName
                             )
@@ -2584,7 +2591,7 @@ var CheckoutCartItemComponent = function (_Component) {
                             { className: "col-xs-1" },
                             _react2.default.createElement(
                                 "i",
-                                { className: "fa fa-plus-square fa-1x" },
+                                { className: "fa fa-plus-square fa-1x", onClick: updateTransaction(transactionId) },
                                 "  "
                             )
                         ),
@@ -2633,8 +2640,9 @@ var CheckoutCartItemComponent = function (_Component) {
 CheckoutCartItemComponent.propTypes = {
     itemName: _react.PropTypes.string,
     itemQuantity: _react.PropTypes.number,
-    itemPrice: _react.PropTypes.string,
-    itemNumber: _react.PropTypes.number
+    itemPrice: _react.PropTypes.number,
+    transactionId: _react.PropTypes.number,
+    onTransactionUpdate: _react.PropTypes.func
 };
 
 var _default = CheckoutCartItemComponent;
@@ -2769,11 +2777,37 @@ var MainCheckoutComponent = function (_Component) {
     }
 
     _createClass(MainCheckoutComponent, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {}
+    }, {
+        key: 'createTransactionList',
+        value: function createTransactionList(transactionItem, onTransactionUpdate) {
+            var menuName = transactionItem.menuName;
+            var price = transactionItem.menuPrice;
+            var quantity = transactionItem.quantity;
+            var transactionId = transactionItem.transactionId;
+
+            return _react2.default.createElement(_CheckoutCartItemComponent2.default, { key: "transactionId_" + transactionId,
+                itemName: menuName,
+                itemPrice: price,
+                itemQuantity: quantity,
+                transactionId: transactionId,
+                onTransactionUpdate: onTransactionUpdate
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            var _props = this.props,
+                transactions = _props.transactions,
+                onTransactionUpdate = _props.onTransactionUpdate;
+
+
             return _react2.default.createElement(
                 'div',
-                { className: 'panel panel-default' },
+                { className: 'chat-panel panel panel-default' },
                 _react2.default.createElement(
                     'div',
                     { className: 'panel-heading' },
@@ -2786,24 +2820,19 @@ var MainCheckoutComponent = function (_Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'list-group' },
-                        _react2.default.createElement(_CheckoutCartItemComponent2.default, {
-                            itemName: "Fruit salad",
-                            itemPrice: "10.00",
-                            itemQuantity: 5,
-                            itemNumber: 1
+                        transactions.map(function (e) {
+                            return _this2.createTransactionList(e, onTransactionUpdate);
                         }),
-                        _react2.default.createElement(_CheckoutCartItemComponent2.default, {
-                            itemName: "Cucumber salad",
-                            itemPrice: "10.00",
-                            itemQuantity: 3,
-                            itemNumber: 2
-                        }),
-                        _react2.default.createElement(_CheckoutCartItemComponent2.default, {
-                            itemName: "Tomato salad",
-                            itemPrice: "10.00",
-                            itemQuantity: 9,
-                            itemNumber: 3
-                        })
+                        transactions.map(this.createTransactionList)
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'panel-footer' },
+                    _react2.default.createElement(
+                        'a',
+                        { href: '#', className: 'btn btn-default btn-block' },
+                        'Check out'
                     )
                 )
             );
@@ -2813,10 +2842,34 @@ var MainCheckoutComponent = function (_Component) {
     return MainCheckoutComponent;
 }(_react.Component);
 
-MainCheckoutComponent.propTypes = {};
+MainCheckoutComponent.propTypes = {
+    transactions: _react.PropTypes.array,
+    onTransactionUpdate: _react.PropTypes.func
+};
 
 var _default = MainCheckoutComponent;
 exports.default = _default;
+
+/*
+<CheckoutCartItemComponent 
+                            itemName = {"Fruit salad"}
+                            itemPrice = {"10.00"}
+                            itemQuantity = {5}
+                            itemNumber = {1}
+                        />
+                        <CheckoutCartItemComponent 
+                            itemName = {"Cucumber salad"}
+                            itemPrice = {"10.00"}
+                            itemQuantity = {3}
+                            itemNumber = {2}
+                        />
+                        <CheckoutCartItemComponent 
+                            itemName = {"Tomato salad"}
+                            itemPrice = {"10.00"}
+                            itemQuantity = {9}
+                            itemNumber = {3}
+                        />*/
+
 ;
 
 var _temp = function () {
@@ -2916,7 +2969,10 @@ var MainDetailComponent = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var menuObject = this.props.menuObject;
+            var _props = this.props,
+                menuObject = _props.menuObject,
+                transactions = _props.transactions,
+                onTransactionUpdate = _props.onTransactionUpdate;
 
             var createMenuDetailComponent = this.createMenuDetailComponent(menuObject);
 
@@ -2938,7 +2994,8 @@ var MainDetailComponent = function (_Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'col-lg-4 col-md-6' },
-                        _react2.default.createElement(_MainCheckoutComponent2.default, null)
+                        _react2.default.createElement(_MainCheckoutComponent2.default, { transactions: transactions,
+                            onTransactionUpdate: onTransactionUpdate })
                     )
                 )
             );
@@ -2949,7 +3006,9 @@ var MainDetailComponent = function (_Component) {
 }(_react.Component);
 
 MainDetailComponent.propTypes = {
-    menuObject: _react.PropTypes.object
+    menuObject: _react.PropTypes.object,
+    transactions: _react.PropTypes.array,
+    onTransactionUpdate: _react.PropTypes.func
 };
 
 var _default = MainDetailComponent;
@@ -3690,7 +3749,7 @@ var MainSideBarComponent = function (_Component) {
                 { className: 'navbar-default sidebar', role: 'navigation' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'sidebar-nav navbar-collapse' },
+                    { className: 'sidebar-nav navbar-collapse', 'aria-expanded': 'false', style: { height: '1px' } },
                     _react2.default.createElement(
                         'ul',
                         { className: 'nav', id: 'side-menu' },
@@ -3979,7 +4038,9 @@ var PosHomeLayout = function (_Component) {
             var navStyleMargin = { marginBottom: '0px' };
             var _props = this.props,
                 menuObject = _props.menuObject,
-                onMenuClick = _props.onMenuClick;
+                onMenuClick = _props.onMenuClick,
+                transactions = _props.transactions,
+                onTransactionUpdate = _props.onTransactionUpdate;
 
 
             var menuItemObject = this.createMenuObject(menuObject);
@@ -4014,7 +4075,9 @@ var PosHomeLayout = function (_Component) {
                     _react2.default.createElement(_MainHeaderComponent2.default, null),
                     _react2.default.createElement(_MainSideBarComponent2.default, { onMenuClick: onMenuClick })
                 ),
-                _react2.default.createElement(_MainDetailComponent2.default, { menuObject: menuItemObject })
+                _react2.default.createElement(_MainDetailComponent2.default, { menuObject: menuItemObject,
+                    transactions: transactions,
+                    onTransactionUpdate: onTransactionUpdate })
             );
         }
     }]);
@@ -4024,7 +4087,9 @@ var PosHomeLayout = function (_Component) {
 
 PosHomeLayout.propTypes = {
     menuObject: _react.PropTypes.object,
-    onMenuClick: _react.PropTypes.func
+    onMenuClick: _react.PropTypes.func,
+    transactions: _react.PropTypes.array,
+    onTransactionUpdate: _react.PropTypes.func
 };
 
 var _default = PosHomeLayout;
@@ -4242,6 +4307,12 @@ var _PosHomeLayout = __webpack_require__("./components/PosMain/PosHomeLayout.js"
 
 var _PosHomeLayout2 = _interopRequireDefault(_PosHomeLayout);
 
+var _transactionActions = __webpack_require__("./containers/Transactions/actions/transaction-actions.js");
+
+var TransactionActions = _interopRequireWildcard(_transactionActions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4266,12 +4337,22 @@ var PosContainer = function (_Component) {
     _this.state = {
       menuObject: dummyObject
     };
+
+    //setup bindings;
+    _this.handleUpdateTransactionItem = _this.handleUpdateTransactionItem.bind(_this);
     return _this;
   }
 
   _createClass(PosContainer, [{
+    key: 'handleUpdateTransactionItem',
+    value: function handleUpdateTransactionItem(transactionItem) {
+      this.props.transactionActions.updateTransaction(transactionItem);
+    }
+  }, {
     key: 'componentDidMount',
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      this.props.transactionActions.getTransactions();
+    }
   }, {
     key: '__handleOnClickMenuItem__REACT_HOT_LOADER__',
     value: function __handleOnClickMenuItem__REACT_HOT_LOADER__() {
@@ -4289,7 +4370,8 @@ var PosContainer = function (_Component) {
     value: function render() {
       var _props = this.props,
           menuItems = _props.menuItems,
-          isLoading = _props.isLoading;
+          isLoading = _props.isLoading,
+          transactions = _props.transactions;
 
       console.log(">>> pringint menu items");
       console.log(menuItems);
@@ -4297,7 +4379,11 @@ var PosContainer = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'container-wrapper' },
-        _react2.default.createElement(_PosHomeLayout2.default, { menuObject: this.state.menuObject, onMenuClick: this.handleOnClickMenuItem })
+        _react2.default.createElement(_PosHomeLayout2.default, { menuObject: this.state.menuObject,
+          onMenuClick: this.handleOnClickMenuItem,
+          transactions: transactions,
+          onTransactionUpdate: this.handleUpdateTransactionItem
+        })
       );
     }
   }]);
@@ -4307,20 +4393,22 @@ var PosContainer = function (_Component) {
 
 PosContainer.propTypes = {
   menuItems: _react.PropTypes.object,
-  isLoading: _react.PropTypes.bool
+  isLoading: _react.PropTypes.bool,
+  transactions: _react.PropTypes.array
 
 };
 
 function mapState(state) {
   return {
     menuItems: state.PosReducer.menuItems,
-    isLoading: state.PosReducer.isLoading
+    isLoading: state.PosReducer.isLoading,
+    transactions: state.TransactionReducer.transactions
   };
 }
 
 function mapDispatch(dispatch) {
   return {
-    //actions: bindActionCreators(TodoActions, dispatch)
+    transactionActions: (0, _redux.bindActionCreators)(TransactionActions, dispatch)
   };
 }
 
@@ -4394,6 +4482,193 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(finishLoadMenuItems, 'finishLoadMenuItems', 'C:/Github/iPos/app/containers/Pos/actions/pos-actions.js');
 
     __REACT_HOT_LOADER__.register(getmenuitems, 'getmenuitems', 'C:/Github/iPos/app/containers/Pos/actions/pos-actions.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./containers/Transactions/TransactionContainer.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__("../node_modules/react/react.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__("../node_modules/react-redux/es/index.js");
+
+var _redux = __webpack_require__("../node_modules/redux/es/index.js");
+
+var _posActions = __webpack_require__("./containers/Pos/actions/pos-actions.js");
+
+var _posActions2 = _interopRequireDefault(_posActions);
+
+var _PosHomeLayout = __webpack_require__("./components/PosMain/PosHomeLayout.js");
+
+var _PosHomeLayout2 = _interopRequireDefault(_PosHomeLayout);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TransactionContainer = function (_Component) {
+  _inherits(TransactionContainer, _Component);
+
+  function TransactionContainer() {
+    _classCallCheck(this, TransactionContainer);
+
+    return _possibleConstructorReturn(this, (TransactionContainer.__proto__ || Object.getPrototypeOf(TransactionContainer)).apply(this, arguments));
+  }
+
+  _createClass(TransactionContainer, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          menuItems = _props.menuItems,
+          isLoading = _props.isLoading;
+
+      console.log(">>> pringint menu items");
+      console.log(menuItems);
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'container-wrapper' },
+        'hello'
+      );
+    }
+  }]);
+
+  return TransactionContainer;
+}(_react.Component);
+
+TransactionContainer.propTypes = {
+  transactions: _react.PropTypes.array
+};
+
+function mapState(state) {
+  return {
+    tranactions: state.TranactionReducer.transactions
+    // isLoading: state.PosReducer.isLoading,
+  };
+}
+
+function mapDispatch(dispatch) {
+  return {
+    //actions: bindActionCreators(TodoActions, dispatch)
+  };
+}
+
+var _default = (0, _reactRedux.connect)(mapState, mapDispatch)(TransactionContainer);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(TransactionContainer, 'TransactionContainer', 'C:/Github/iPos/app/containers/Transactions/TransactionContainer.js');
+
+  __REACT_HOT_LOADER__.register(mapState, 'mapState', 'C:/Github/iPos/app/containers/Transactions/TransactionContainer.js');
+
+  __REACT_HOT_LOADER__.register(mapDispatch, 'mapDispatch', 'C:/Github/iPos/app/containers/Transactions/TransactionContainer.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Github/iPos/app/containers/Transactions/TransactionContainer.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./containers/Transactions/actions/transaction-actions.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.getTransactions = getTransactions;
+exports.updateTransaction = updateTransaction;
+
+var _transactionActionTypes = __webpack_require__("./containers/Transactions/actions/transaction-action-types.js");
+
+function submitGetTransactions() {
+    return {
+        transactions: [],
+        type: _transactionActionTypes.SUBMIT_GET_TRANSACTIONS
+    };
+}
+
+function finishGetTransactions() {
+    return {
+        transactions: [],
+        type: _transactionActionTypes.FINISH_GET_TRANSACTIONS
+    };
+}
+
+/*Update transactions */
+function submitUpdateTransaction(transactionItem) {
+    return {
+        transactionItem: transactionItem,
+        type: _transactionActionTypes.SUBMIT_UPDATE_TRANSACTIONS
+    };
+}
+
+/*Update transactions */
+function finishUpdateTransaction(transactionItem) {
+    return {
+        transactionItem: transactionItem,
+        type: _transactionActionTypes.FINISH_UPDATE_TRANSACTIONS
+    };
+}
+
+function getTransactions() {
+    return function (dispatch, getState) {
+        dispatch(submitGetTransactions());
+        dispatch(finishGetTransactions());
+    };
+}
+
+function updateTransaction(transactionItem) {
+    return function (dispatch, getState) {
+        dispatch(submitUpdateTransaction(transactionItem));
+        dispatch(finishUpdateTransaction(transactionItem));
+    };
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(submitGetTransactions, 'submitGetTransactions', 'C:/Github/iPos/app/containers/Transactions/actions/transaction-actions.js');
+
+    __REACT_HOT_LOADER__.register(finishGetTransactions, 'finishGetTransactions', 'C:/Github/iPos/app/containers/Transactions/actions/transaction-actions.js');
+
+    __REACT_HOT_LOADER__.register(submitUpdateTransaction, 'submitUpdateTransaction', 'C:/Github/iPos/app/containers/Transactions/actions/transaction-actions.js');
+
+    __REACT_HOT_LOADER__.register(finishUpdateTransaction, 'finishUpdateTransaction', 'C:/Github/iPos/app/containers/Transactions/actions/transaction-actions.js');
+
+    __REACT_HOT_LOADER__.register(getTransactions, 'getTransactions', 'C:/Github/iPos/app/containers/Transactions/actions/transaction-actions.js');
+
+    __REACT_HOT_LOADER__.register(updateTransaction, 'updateTransaction', 'C:/Github/iPos/app/containers/Transactions/actions/transaction-actions.js');
 }();
 
 ;
