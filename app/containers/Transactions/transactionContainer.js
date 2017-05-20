@@ -1,20 +1,21 @@
 import React, { Component, PropTypes  } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import getmenuitems from 'containers/Pos/actions/pos-actions';
-import PosHomeLayout from 'components/PosMain/PosHomeLayout';
+import TransactionLayout from 'containers/Transactions/ui/layout/TransactionLayout';
+import AppContainer from 'components/common/AppContainer';
 
 class TransactionContainer extends Component {
  
     render() {
         
-        const {menuItems, isLoading  } = this.props;
-        console.log(">>> pringint menu items");
-        console.log(menuItems);
+        //const {menuItems, isLoading  } = this.props;
+        //console.log(">>> pringint menu items");
+        //console.log(menuItems);
 
         return (
         <div className="container-wrapper">
-            hello
+          <AppContainer />
+           
         </div>
         );
     }
@@ -26,7 +27,7 @@ TransactionContainer.propTypes={
 
 function mapState(state) {
   return {
-    tranactions: state.TranactionReducer.transactions
+    tranactions: state.TransactionReducer.transactions
     // isLoading: state.PosReducer.isLoading,
   };
 }

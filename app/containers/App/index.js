@@ -18,6 +18,7 @@ const App = () => (
     
     <Switch>
       <Route path="/pos" component={POS}/>
+      <Route path="/checkout" component = {Transaction} />
       <Redirect to="/pos" />
     </Switch>
   </main>

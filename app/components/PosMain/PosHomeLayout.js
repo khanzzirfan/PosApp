@@ -1,17 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import MainHeaderComponent from 'components/PosMain/MainHeaderComponent';
 import MainDetailComponent from 'components/PosMain/MainDetailComponent';
-import MainSideBarComponent from 'components/PosMain/MainSideBarComponent';
-// import NavigationMenu from 'components/PosMain/NavigationMenu';
+import AppLayout from 'components/common/AppLayout';
 
 class PosHomeLayout extends Component {
     constructor(props) {
         super(props);
         
-    }
-
-    handleOnToggleClick = () => {
-        this.props.onToggleSideNavClick();
     }
 
     /**Update checkout transaction item quantity */
@@ -21,11 +15,10 @@ class PosHomeLayout extends Component {
         }
     }
 
-
     /*Add menu item to checkout component */
-    handleOnMenuItemAdd = () => {
-        if(this.props.onTransactionUpdate){
-            this.props.onTransactionUpdate();
+    handleOnAddItem = (addItem) =>{
+        if(this.props.onAddItemClick){
+            this.props.onAddItemClick(addItem);
         }
     }
 
@@ -36,31 +29,31 @@ class PosHomeLayout extends Component {
                 Items: [
                     {
                         itemName: "Fruit salad",
-                        itemPrice: "$10.00",
+                        itemPrice: "10.25",
                     },
                     {
                         itemName: "Cucumber salad",
-                        itemPrice: "$10.00",
+                        itemPrice: "10.00",
                     },
                     {
                         itemName: "Rose apple salad",
-                        itemPrice: "$10.00",
+                        itemPrice: "10.00",
                     },
                     {
                         itemName: "Pawpaw salad",
-                        itemPrice: "$10.00",
+                        itemPrice: "10.00",
                     },
                     {
                         itemName: "Cucumber salad",
-                        itemPrice: "$10.00",
+                        itemPrice: "10.00",
                     },
                     {
                         itemName: "Rose apple salad",
-                        itemPrice: "$10.00",
+                        itemPrice: "10.00",
                     },
                     {
                         itemName: "Pawpaw salad",
-                        itemPrice: "$10.00",
+                        itemPrice: "10.00",
                     },
                 ]
             };
@@ -75,38 +68,20 @@ class PosHomeLayout extends Component {
     render() {
         let navStyleMargin = { marginBottom: '0px' }
         const {menuObject,
-            onMenuClick,
             transactions,
             onTransactionUpdate,
-            isMobile,
-            toggleSideNav} = this.props;
+            } = this.props;
 
         let menuItemObject = this.createMenuObject(menuObject);
         console.log(">>> printing pos home layout");
         
-
         return (
             <div>
-                <nav className="navbar navbar-default navbar-static-top" role="navigation" style={navStyleMargin}>
-                    <div className="navbar-header">
-                        <button type="button" onClick={this.handleOnToggleClick}
-                            className="navbar-toggle"
-                            data-toggle="collapse"
-                            data-target=".navbar-collapse">
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                        </button>
-                        <a className="navbar-brand" href="index.html">Pos v2.0</a>
-                    </div>
-                    <MainHeaderComponent />
-                    <MainSideBarComponent onMenuClick={onMenuClick}/>
-                </nav>
                 <MainDetailComponent 
                     menuObject={menuItemObject}
                     transactions ={transactions}
-                    onTransactionUpdate = {this.handleOnTransactionUpdate}/>
+                    onTransactionUpdate = {this.handleOnTransactionUpdate}
+                    onAddItemClick = {this.handleOnAddItem}/>
             </div>
         );
     }
@@ -115,12 +90,9 @@ class PosHomeLayout extends Component {
 
 PosHomeLayout.propTypes = {
     menuObject: PropTypes.object,
-    onMenuClick: PropTypes.func,
     transactions: PropTypes.array,
     onTransactionUpdate: PropTypes.func,
-    isMobile: PropTypes.bool,
-    toggleSideNav: PropTypes.bool,
-    onToggleSideNavClick: PropTypes.func,
+    onAddItemClick: PropTypes.func,
 };
 
 export default PosHomeLayout;

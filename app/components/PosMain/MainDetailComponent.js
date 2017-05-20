@@ -7,6 +7,13 @@ class MainDetailComponent extends Component {
 
         //this.handleOnAddItem = this.handleOnAddItem.bind(this);
     }
+    /**on adding menu item to checkout cart */
+    handleOnAddItem = (addItem) =>{
+        if(this.props.onAddItemClick){
+            this.props.onAddItemClick(addItem);
+        }
+    }
+
     /**Update checkout transaction item quantity */
     handleOnTransactionUpdate = (transactionItem) => {
         if(this.props.onTransactionUpdate){
@@ -22,24 +29,28 @@ class MainDetailComponent extends Component {
         return groups;
     }
 
-    createMenuComponent(menuText, index) {
+    /**constructs a menu item */
+    createMenuComponent(item, index) {
         return (
             <div key={index} className="col-lg-3 col-md-6">
                 <MenuItemComponent LinkText="Add to cart"
-                    MenuText={menuText}
+                    MenuText={item.itemName}
                     MenuIconClass="fa fa-compass fa-5x"
-                    MenuColorClass="panel-primary" />
+                    MenuColorClass="panel-primary"
+                    MenuPrice={item.itemPrice}
+                    onAddItemClick ={this.handleOnAddItem}/>
             </div>
         );
     }
 
+    /**Show menu items on the detail page */
     createMenuDetailComponent(menuObject) {
         let menuArrayObject = this.createGroupedArray(menuObject.Items, 4);
         let menuDetailReactElement  = menuArrayObject.map((itemSubArray, index) => {
             return (
                 <div key = {`menuItemKey${index}`} className="row">
                     {itemSubArray.map( (item, index) => {
-                        return this.createMenuComponent(item.itemName, index);
+                        return this.createMenuComponent(item, index);
                     })}
                 </div>
             )    
@@ -73,6 +84,7 @@ MainDetailComponent.propTypes = {
     menuObject: PropTypes.object,
     transactions: PropTypes.array,
     onTransactionUpdate: PropTypes.func,
+    onAddItemClick: PropTypes.func,
 };
 
 export default MainDetailComponent;

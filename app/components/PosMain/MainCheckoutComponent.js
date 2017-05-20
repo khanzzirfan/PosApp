@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CheckoutCartItemComponent from 'components/PosMain/CheckoutCart/CheckoutCartItemComponent';
+import { Link } from 'react-router-dom'
 
 class MainCheckoutComponent extends Component {
 
@@ -51,7 +52,7 @@ class MainCheckoutComponent extends Component {
                     </div>
                 </div>
                 <div className="panel-footer">
-                    <a href="#" className="btn btn-default btn-block">Check out</a>
+                    <Link to={`/checkout`} className="btn btn-success btn-block">Check out</Link>
                 </div>
             </div>
         );

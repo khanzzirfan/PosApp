@@ -1,7 +1,9 @@
 import {SUBMIT_GET_TRANSACTIONS,
         FINISH_GET_TRANSACTIONS,
         SUBMIT_UPDATE_TRANSACTIONS,
-        FINISH_UPDATE_TRANSACTIONS
+        FINISH_UPDATE_TRANSACTIONS,
+        SUBMIT_ADD_TRANSACTIONS,
+        FINISH_ADD_TRANSACTIONS
          } from 'containers/Transactions/actions/transaction-action-types';
 
 function submitGetTransactions() {
@@ -15,6 +17,20 @@ function finishGetTransactions() {
     return {
         transactions: [],
         type: FINISH_GET_TRANSACTIONS
+    }
+}
+
+function submitAddTransaction(transactionItem){
+    return {
+        transactionItem: transactionItem,
+        type: SUBMIT_ADD_TRANSACTIONS
+    }
+}
+
+function finishAddTransaction(transactionItem){
+    return {
+        transactionItem: transactionItem,
+        type: FINISH_ADD_TRANSACTIONS
     }
 }
 
@@ -45,5 +61,12 @@ export function updateTransaction(transactionItem){
     return (dispatch, getState) => {
             dispatch(submitUpdateTransaction(transactionItem));
             dispatch(finishUpdateTransaction(transactionItem));
+    }
+}
+
+export function addTransaction(transactionItem) {
+    return (dispatch, getState) => {
+            dispatch(submitAddTransaction(transactionItem));
+            dispatch(finishAddTransaction(transactionItem));
     }
 }
