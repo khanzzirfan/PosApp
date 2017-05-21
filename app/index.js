@@ -11,7 +11,7 @@ import 'theme/react-metismenu/react-metismenu-standart.css';
 import 'theme/sb-admin-2.css';
 //import 'theme/metismenu.scss';
 import 'theme/font-awesome/css/font-awesome.css';
-
+import 'theme/main.scss';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';

@@ -8,14 +8,15 @@ class TransactionContainer extends Component {
  
     render() {
         
-        //const {menuItems, isLoading  } = this.props;
+        const {transactions} = this.props;
         //console.log(">>> pringint menu items");
         //console.log(menuItems);
 
         return (
         <div className="container-wrapper">
           <AppContainer />
-           
+           <TransactionLayout 
+            />
         </div>
         );
     }

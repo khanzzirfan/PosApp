@@ -6,6 +6,7 @@
 body {
   background-color: #f8f8f8;
 }
+
 #wrapper {
   width: 100%;
 }
@@ -166,6 +167,14 @@ body {
   height: 350px;
   overflow-y: scroll;
 }
+.scrollable {
+    tbody {
+        height:200px;
+        overflow-y:auto;
+        width: 100%;
+        }
+}
+
 .login-panel {
   margin-top: 25%;
 }
