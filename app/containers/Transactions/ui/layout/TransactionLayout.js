@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import TransactionsTableComponent from 'containers/Transactions/ui/component/TransactionsTableComponent';
+import TransactionsTableComponent from 'containers/Transactions/ui/components/TransactionsTableComponent';
 import { FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 class TransactionLayout extends Component {

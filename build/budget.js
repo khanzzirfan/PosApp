@@ -2515,20 +2515,118 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var CheckoutCartItemComponent = function (_Component) {
     _inherits(CheckoutCartItemComponent, _Component);
 
-    function CheckoutCartItemComponent() {
+    function CheckoutCartItemComponent(props, context) {
         _classCallCheck(this, CheckoutCartItemComponent);
 
-        var _this = _possibleConstructorReturn(this, (CheckoutCartItemComponent.__proto__ || Object.getPrototypeOf(CheckoutCartItemComponent)).call(this));
+        //local state for each transaction item;
+        var _this = _possibleConstructorReturn(this, (CheckoutCartItemComponent.__proto__ || Object.getPrototypeOf(CheckoutCartItemComponent)).call(this, props, context));
 
-        _this.updateTransaction = _this.updateTransaction.bind(_this);
+        _this.onAddMenuItem = function () {
+            return _this.__onAddMenuItem__REACT_HOT_LOADER__.apply(_this, arguments);
+        };
+
+        _this.onRemoveMenuItem = function () {
+            return _this.__onRemoveMenuItem__REACT_HOT_LOADER__.apply(_this, arguments);
+        };
+
+        _this.updateTransaction = function () {
+            return _this.__updateTransaction__REACT_HOT_LOADER__.apply(_this, arguments);
+        };
+
+        _this.state = {
+            transactionId: 0,
+            itemQuantity: 0,
+            itemName: '',
+            itemPrice: 0.00
+        };
+
         return _this;
     }
 
     _createClass(CheckoutCartItemComponent, [{
-        key: "updateTransaction",
-        value: function updateTransaction(transactionId) {}
+        key: '__onAddMenuItem__REACT_HOT_LOADER__',
+        value: function __onAddMenuItem__REACT_HOT_LOADER__() {
+            return this.__onAddMenuItem__REACT_HOT_LOADER__.apply(this, arguments);
+        }
     }, {
-        key: "render",
+        key: '__onAddMenuItem__REACT_HOT_LOADER__',
+        value: function __onAddMenuItem__REACT_HOT_LOADER__(transactionId) {
+            console.log(">>> adding item and priting state ");
+            console.log(this.state);
+
+            var itemQuantity = this.state.itemQuantity + 1;
+            this.setState({
+                itemQuantity: itemQuantity
+            });
+
+            //update the reducer store;
+            this.updateTransaction(itemQuantity);
+        }
+    }, {
+        key: '__onRemoveMenuItem__REACT_HOT_LOADER__',
+        value: function __onRemoveMenuItem__REACT_HOT_LOADER__() {
+            return this.__onRemoveMenuItem__REACT_HOT_LOADER__.apply(this, arguments);
+        }
+    }, {
+        key: '__onRemoveMenuItem__REACT_HOT_LOADER__',
+        value: function __onRemoveMenuItem__REACT_HOT_LOADER__(transactionId) {
+            console.log(">>> removing item and priting state ");
+            console.log(this.state);
+
+            var itemQuantity = this.state.itemQuantity - 1;
+            this.setState({
+                itemQuantity: itemQuantity
+            });
+        }
+    }, {
+        key: '__updateTransaction__REACT_HOT_LOADER__',
+        value: function __updateTransaction__REACT_HOT_LOADER__() {
+            return this.__updateTransaction__REACT_HOT_LOADER__.apply(this, arguments);
+        }
+    }, {
+        key: '__updateTransaction__REACT_HOT_LOADER__',
+        value: function __updateTransaction__REACT_HOT_LOADER__(itemQuantity) {
+            var transactionItem = {
+                transactionId: this.state.transactionId,
+                menuPrice: this.state.itemPrice,
+                quantity: itemQuantity,
+                menuName: this.state.itemName
+            };
+
+            this.props.onTransactionUpdate(transactionItem);
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var transactionId = this.props.transactionId;
+            var itemPrice = this.props.itemPrice;
+            var itemQuantity = this.props.itemQuantity;
+            var itemName = this.props.itemName;
+
+            this.setState({
+                transactionId: transactionId,
+                itemPrice: itemPrice,
+                itemQuantity: itemQuantity,
+                itemName: itemName
+            });
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            // let transactionId = nextProps.transactionId;
+            // let itemPrice = nextProps.itemPrice;
+            // let itemQuantity = nextProps.itemQuantity;
+            // let itemName = nextProps.itemName;
+
+            //  this.setState({
+            //     transactionId: transactionId,
+            //     itemPrice: itemPrice,
+            //     itemQuantity: itemQuantity,
+            //     itemName: itemName
+            // });
+        }
+    }, {
+        key: 'render',
         value: function render() {
             var _props = this.props,
                 itemName = _props.itemName,
@@ -2538,92 +2636,93 @@ var CheckoutCartItemComponent = function (_Component) {
                 onTransactionUpdate = _props.onTransactionUpdate;
 
 
-            var formattedName = transactionId + ". " + itemName;
-            var price = "$" + itemPrice;
-            var totalAmount = "$" + itemPrice * itemQuantity + ".00";
+            var formattedName = transactionId + '. ' + itemName;
+            var price = '$' + this.state.itemPrice;
+            var totalAmount = '$' + this.state.itemPrice * this.state.itemQuantity + '.00';
 
             var itemQuantityrowSeperate = { marginTop: "6px" };
             var itemNamePaddingLeft = { paddingLeft: "0px" };
+
             return _react2.default.createElement(
-                "div",
+                'div',
                 null,
                 _react2.default.createElement(
-                    "a",
-                    { href: "#", className: "list-group-item" },
+                    'a',
+                    { className: 'list-group-item' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "row" },
+                        'div',
+                        { className: 'row' },
                         _react2.default.createElement(
-                            "div",
-                            { className: "col-lg-6 text-left" },
+                            'div',
+                            { className: 'col-lg-6 text-left' },
                             _react2.default.createElement(
-                                "span",
+                                'span',
                                 null,
                                 transactionId,
-                                ". ",
+                                '. ',
                                 itemName
                             )
                         ),
                         _react2.default.createElement(
-                            "div",
-                            { className: "col-lg-6 text-right" },
+                            'div',
+                            { className: 'col-lg-6 text-right' },
                             _react2.default.createElement(
-                                "span",
+                                'span',
                                 null,
                                 price
                             )
                         )
                     ),
                     _react2.default.createElement(
-                        "div",
-                        { className: "row" },
+                        'div',
+                        { className: 'row' },
                         _react2.default.createElement(
-                            "div",
-                            { className: "col-xs-1" },
+                            'div',
+                            { className: 'col-xs-1' },
                             _react2.default.createElement(
-                                "span",
+                                'span',
                                 null,
-                                "Qty"
+                                'Qty'
                             )
                         ),
                         _react2.default.createElement(
-                            "div",
-                            { className: "col-xs-1" },
+                            'div',
+                            { className: 'col-xs-1' },
                             _react2.default.createElement(
-                                "i",
-                                { className: "fa fa-plus-square fa-1x", onClick: updateTransaction(transactionId) },
-                                "  "
+                                'button',
+                                { type: 'button', className: 'btn btn-xs', onClick: this.onAddMenuItem },
+                                _react2.default.createElement('span', { className: 'fa fa-plus-square fa-1x' })
                             )
                         ),
                         _react2.default.createElement(
-                            "div",
-                            { className: "col-xs-1" },
+                            'div',
+                            { className: 'col-xs-1' },
                             _react2.default.createElement(
-                                "i",
-                                { className: "fa fa-1x" },
-                                itemQuantity,
-                                " "
+                                'i',
+                                { className: 'fa fa-1x' },
+                                this.state.itemQuantity,
+                                ' '
                             )
                         ),
                         _react2.default.createElement(
-                            "div",
-                            { className: "col-xs-1" },
+                            'div',
+                            { className: 'col-xs-1' },
                             _react2.default.createElement(
-                                "i",
-                                { className: "fa fa-minus-square fa-1x" },
-                                "   "
+                                'button',
+                                { type: 'button', className: 'btn btn-xs', onClick: this.onRemoveMenuItem },
+                                _react2.default.createElement('span', { className: 'fa fa-minus-square fa-1x' })
                             )
                         ),
                         _react2.default.createElement(
-                            "div",
-                            { className: "col-xs-7 text-right" },
+                            'div',
+                            { className: ' text-right' },
                             _react2.default.createElement(
-                                "span",
+                                'span',
                                 null,
-                                "Amount ",
                                 _react2.default.createElement(
-                                    "i",
+                                    'i',
                                     null,
+                                    'Amount ',
                                     totalAmount
                                 )
                             )
@@ -2654,9 +2753,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(CheckoutCartItemComponent, "CheckoutCartItemComponent", "C:/Github/iPos/app/components/PosMain/CheckoutCart/CheckoutCartItemComponent.js");
+    __REACT_HOT_LOADER__.register(CheckoutCartItemComponent, 'CheckoutCartItemComponent', 'C:/Github/iPos/app/components/PosMain/CheckoutCart/CheckoutCartItemComponent.js');
 
-    __REACT_HOT_LOADER__.register(_default, "default", "C:/Github/iPos/app/components/PosMain/CheckoutCart/CheckoutCartItemComponent.js");
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Github/iPos/app/components/PosMain/CheckoutCart/CheckoutCartItemComponent.js');
 }();
 
 ;
@@ -2771,17 +2870,53 @@ var MainCheckoutComponent = function (_Component) {
     _inherits(MainCheckoutComponent, _Component);
 
     function MainCheckoutComponent() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
         _classCallCheck(this, MainCheckoutComponent);
 
-        return _possibleConstructorReturn(this, (MainCheckoutComponent.__proto__ || Object.getPrototypeOf(MainCheckoutComponent)).apply(this, arguments));
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = MainCheckoutComponent.__proto__ || Object.getPrototypeOf(MainCheckoutComponent)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnTransactionUpdate = function () {
+            var _this2;
+
+            return (_this2 = _this).__handleOnTransactionUpdate__REACT_HOT_LOADER__.apply(_this2, arguments);
+        }, _this.createTransactionList = function () {
+            var _this3;
+
+            return (_this3 = _this).__createTransactionList__REACT_HOT_LOADER__.apply(_this3, arguments);
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(MainCheckoutComponent, [{
         key: 'componentDidMount',
         value: function componentDidMount() {}
+
+        /**Update nesteed checkout transaction item quantity */
+
     }, {
-        key: 'createTransactionList',
-        value: function createTransactionList(transactionItem, onTransactionUpdate) {
+        key: '__handleOnTransactionUpdate__REACT_HOT_LOADER__',
+        value: function __handleOnTransactionUpdate__REACT_HOT_LOADER__() {
+            return this.__handleOnTransactionUpdate__REACT_HOT_LOADER__.apply(this, arguments);
+        }
+    }, {
+        key: '__handleOnTransactionUpdate__REACT_HOT_LOADER__',
+        value: function __handleOnTransactionUpdate__REACT_HOT_LOADER__(transactionItem) {
+            if (this.props.onTransactionUpdate) {
+                this.props.onTransactionUpdate(transactionItem);
+            }
+        }
+    }, {
+        key: '__createTransactionList__REACT_HOT_LOADER__',
+        value: function __createTransactionList__REACT_HOT_LOADER__() {
+            return this.__createTransactionList__REACT_HOT_LOADER__.apply(this, arguments);
+        }
+    }, {
+        key: '__createTransactionList__REACT_HOT_LOADER__',
+        value: function __createTransactionList__REACT_HOT_LOADER__(transactionItem) {
             var menuName = transactionItem.menuName;
             var price = transactionItem.menuPrice;
             var quantity = transactionItem.quantity;
@@ -2792,13 +2927,13 @@ var MainCheckoutComponent = function (_Component) {
                 itemPrice: price,
                 itemQuantity: quantity,
                 transactionId: transactionId,
-                onTransactionUpdate: onTransactionUpdate
+                onTransactionUpdate: this.handleOnTransactionUpdate
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this4 = this;
 
             var _props = this.props,
                 transactions = _props.transactions,
@@ -2820,10 +2955,9 @@ var MainCheckoutComponent = function (_Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'list-group' },
-                        transactions.map(function (e) {
-                            return _this2.createTransactionList(e, onTransactionUpdate);
-                        }),
-                        transactions.map(this.createTransactionList)
+                        transactions.length > 0 && transactions.map(function (e) {
+                            return _this4.createTransactionList(e);
+                        })
                     )
                 ),
                 _react2.default.createElement(
@@ -2872,7 +3006,7 @@ exports.default = _default;
 
 ;
 
-var _temp = function () {
+var _temp2 = function () {
     if (typeof __REACT_HOT_LOADER__ === 'undefined') {
         return;
     }
@@ -2921,13 +3055,34 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var MainDetailComponent = function (_Component) {
     _inherits(MainDetailComponent, _Component);
 
-    function MainDetailComponent() {
+    function MainDetailComponent(props) {
         _classCallCheck(this, MainDetailComponent);
 
-        return _possibleConstructorReturn(this, (MainDetailComponent.__proto__ || Object.getPrototypeOf(MainDetailComponent)).apply(this, arguments));
+        //this.handleOnAddItem = this.handleOnAddItem.bind(this);
+        var _this = _possibleConstructorReturn(this, (MainDetailComponent.__proto__ || Object.getPrototypeOf(MainDetailComponent)).call(this, props));
+
+        _this.handleOnTransactionUpdate = function () {
+            return _this.__handleOnTransactionUpdate__REACT_HOT_LOADER__.apply(_this, arguments);
+        };
+
+        return _this;
     }
+    /**Update checkout transaction item quantity */
+
 
     _createClass(MainDetailComponent, [{
+        key: '__handleOnTransactionUpdate__REACT_HOT_LOADER__',
+        value: function __handleOnTransactionUpdate__REACT_HOT_LOADER__() {
+            return this.__handleOnTransactionUpdate__REACT_HOT_LOADER__.apply(this, arguments);
+        }
+    }, {
+        key: '__handleOnTransactionUpdate__REACT_HOT_LOADER__',
+        value: function __handleOnTransactionUpdate__REACT_HOT_LOADER__(transactionItem) {
+            if (this.props.onTransactionUpdate) {
+                this.props.onTransactionUpdate(transactionItem);
+            }
+        }
+    }, {
         key: 'createGroupedArray',
         value: function createGroupedArray(arr, chunkSize) {
             var groups = [],
@@ -2942,7 +3097,7 @@ var MainDetailComponent = function (_Component) {
         value: function createMenuComponent(menuText, index) {
             return _react2.default.createElement(
                 'div',
-                { key: index, className: 'col-lg-4 col-md-6' },
+                { key: index, className: 'col-lg-3 col-md-6' },
                 _react2.default.createElement(_MenuItemComponent2.default, { LinkText: 'Add to cart',
                     MenuText: menuText,
                     MenuIconClass: 'fa fa-compass fa-5x',
@@ -2954,7 +3109,7 @@ var MainDetailComponent = function (_Component) {
         value: function createMenuDetailComponent(menuObject) {
             var _this2 = this;
 
-            var menuArrayObject = this.createGroupedArray(menuObject.Items, 3);
+            var menuArrayObject = this.createGroupedArray(menuObject.Items, 4);
             var menuDetailReactElement = menuArrayObject.map(function (itemSubArray, index) {
                 return _react2.default.createElement(
                     'div',
@@ -2995,7 +3150,7 @@ var MainDetailComponent = function (_Component) {
                         'div',
                         { className: 'col-lg-4 col-md-6' },
                         _react2.default.createElement(_MainCheckoutComponent2.default, { transactions: transactions,
-                            onTransactionUpdate: onTransactionUpdate })
+                            onTransactionUpdate: this.handleOnTransactionUpdate })
                     )
                 )
             );
@@ -3743,13 +3898,22 @@ var MainSideBarComponent = function (_Component) {
                     name: "veges"
                 }]
             }];
+            var _props = this.props,
+                isMobile = _props.isMobile,
+                toggleSideNav = _props.toggleSideNav;
+
+            console.log(">>> renering mobile version " + isMobile);
+            var navBarCollapse = 'sidebar-nav navbar-collapse ' + (isMobile ? 'collapse' : '');
+            var navBarOpened = toggleSideNav ? navBarCollapse + " in" : navBarCollapse;
+            var ariaExpanded = toggleSideNav ? "true" : "false";
+            var divStyle = toggleSideNav ? {} : { height: '1px' };
 
             return _react2.default.createElement(
                 'div',
                 { className: 'navbar-default sidebar', role: 'navigation' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'sidebar-nav navbar-collapse', 'aria-expanded': 'false', style: { height: '1px' } },
+                    { className: navBarOpened, 'aria-expanded': ariaExpanded, style: divStyle },
                     _react2.default.createElement(
                         'ul',
                         { className: 'nav', id: 'side-menu' },
@@ -3784,7 +3948,9 @@ var MainSideBarComponent = function (_Component) {
 }(_react.Component);
 
 MainSideBarComponent.propTypes = {
-    onMenuClick: _react.PropTypes.func
+    onMenuClick: _react.PropTypes.func,
+    isMobile: _react.PropTypes.bool,
+    toggleSideNav: _react.PropTypes.bool
 };
 
 var _default = MainSideBarComponent;
@@ -3876,7 +4042,7 @@ var MenuItemComponent = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'a',
-                        { href: '#' },
+                        null,
                         _react2.default.createElement(
                             'div',
                             { className: 'panel-footer' },
@@ -3976,25 +4142,71 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var PosHomeLayout = function (_Component) {
     _inherits(PosHomeLayout, _Component);
 
-    function PosHomeLayout() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
+    function PosHomeLayout(props) {
         _classCallCheck(this, PosHomeLayout);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
+        var _this = _possibleConstructorReturn(this, (PosHomeLayout.__proto__ || Object.getPrototypeOf(PosHomeLayout)).call(this, props));
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PosHomeLayout.__proto__ || Object.getPrototypeOf(PosHomeLayout)).call.apply(_ref, [this].concat(args))), _this), _this.createMenuObject = function () {
-            var _this2;
+        _this.handleOnToggleClick = function () {
+            return _this.__handleOnToggleClick__REACT_HOT_LOADER__.apply(_this, arguments);
+        };
 
-            return (_this2 = _this).__createMenuObject__REACT_HOT_LOADER__.apply(_this2, arguments);
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        _this.handleOnTransactionUpdate = function () {
+            return _this.__handleOnTransactionUpdate__REACT_HOT_LOADER__.apply(_this, arguments);
+        };
+
+        _this.handleOnMenuItemAdd = function () {
+            return _this.__handleOnMenuItemAdd__REACT_HOT_LOADER__.apply(_this, arguments);
+        };
+
+        _this.createMenuObject = function () {
+            return _this.__createMenuObject__REACT_HOT_LOADER__.apply(_this, arguments);
+        };
+
+        return _this;
     }
 
     _createClass(PosHomeLayout, [{
+        key: '__handleOnToggleClick__REACT_HOT_LOADER__',
+
+
+        /**Update checkout transaction item quantity */
+        value: function __handleOnToggleClick__REACT_HOT_LOADER__() {
+            return this.__handleOnToggleClick__REACT_HOT_LOADER__.apply(this, arguments);
+        }
+    }, {
+        key: '__handleOnToggleClick__REACT_HOT_LOADER__',
+        value: function __handleOnToggleClick__REACT_HOT_LOADER__() {
+            this.props.onToggleSideNavClick();
+        }
+    }, {
+        key: '__handleOnTransactionUpdate__REACT_HOT_LOADER__',
+
+
+        /*Add menu item to checkout component */
+        value: function __handleOnTransactionUpdate__REACT_HOT_LOADER__() {
+            return this.__handleOnTransactionUpdate__REACT_HOT_LOADER__.apply(this, arguments);
+        }
+    }, {
+        key: '__handleOnTransactionUpdate__REACT_HOT_LOADER__',
+        value: function __handleOnTransactionUpdate__REACT_HOT_LOADER__(transactionItem) {
+            if (this.props.onTransactionUpdate) {
+                this.props.onTransactionUpdate(transactionItem);
+            }
+        }
+    }, {
+        key: '__handleOnMenuItemAdd__REACT_HOT_LOADER__',
+        value: function __handleOnMenuItemAdd__REACT_HOT_LOADER__() {
+            return this.__handleOnMenuItemAdd__REACT_HOT_LOADER__.apply(this, arguments);
+        }
+    }, {
+        key: '__handleOnMenuItemAdd__REACT_HOT_LOADER__',
+        value: function __handleOnMenuItemAdd__REACT_HOT_LOADER__() {
+            if (this.props.onTransactionUpdate) {
+                this.props.onTransactionUpdate();
+            }
+        }
+    }, {
         key: '__createMenuObject__REACT_HOT_LOADER__',
         value: function __createMenuObject__REACT_HOT_LOADER__() {
             return this.__createMenuObject__REACT_HOT_LOADER__.apply(this, arguments);
@@ -4040,10 +4252,13 @@ var PosHomeLayout = function (_Component) {
                 menuObject = _props.menuObject,
                 onMenuClick = _props.onMenuClick,
                 transactions = _props.transactions,
-                onTransactionUpdate = _props.onTransactionUpdate;
+                onTransactionUpdate = _props.onTransactionUpdate,
+                isMobile = _props.isMobile,
+                toggleSideNav = _props.toggleSideNav;
 
 
             var menuItemObject = this.createMenuObject(menuObject);
+            console.log(">>> printing pos home layout");
 
             return _react2.default.createElement(
                 'div',
@@ -4056,7 +4271,10 @@ var PosHomeLayout = function (_Component) {
                         { className: 'navbar-header' },
                         _react2.default.createElement(
                             'button',
-                            { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '.navbar-collapse' },
+                            { type: 'button', onClick: this.handleOnToggleClick,
+                                className: 'navbar-toggle',
+                                'data-toggle': 'collapse',
+                                'data-target': '.navbar-collapse' },
                             _react2.default.createElement(
                                 'span',
                                 { className: 'sr-only' },
@@ -4075,9 +4293,10 @@ var PosHomeLayout = function (_Component) {
                     _react2.default.createElement(_MainHeaderComponent2.default, null),
                     _react2.default.createElement(_MainSideBarComponent2.default, { onMenuClick: onMenuClick })
                 ),
-                _react2.default.createElement(_MainDetailComponent2.default, { menuObject: menuItemObject,
+                _react2.default.createElement(_MainDetailComponent2.default, {
+                    menuObject: menuItemObject,
                     transactions: transactions,
-                    onTransactionUpdate: onTransactionUpdate })
+                    onTransactionUpdate: this.handleOnTransactionUpdate })
             );
         }
     }]);
@@ -4089,14 +4308,17 @@ PosHomeLayout.propTypes = {
     menuObject: _react.PropTypes.object,
     onMenuClick: _react.PropTypes.func,
     transactions: _react.PropTypes.array,
-    onTransactionUpdate: _react.PropTypes.func
+    onTransactionUpdate: _react.PropTypes.func,
+    isMobile: _react.PropTypes.bool,
+    toggleSideNav: _react.PropTypes.bool,
+    onToggleSideNavClick: _react.PropTypes.func
 };
 
 var _default = PosHomeLayout;
 exports.default = _default;
 ;
 
-var _temp2 = function () {
+var _temp = function () {
     if (typeof __REACT_HOT_LOADER__ === 'undefined') {
         return;
     }
@@ -4324,10 +4546,22 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var PosContainer = function (_Component) {
   _inherits(PosContainer, _Component);
 
-  function PosContainer() {
+  function PosContainer(props) {
     _classCallCheck(this, PosContainer);
 
-    var _this = _possibleConstructorReturn(this, (PosContainer.__proto__ || Object.getPrototypeOf(PosContainer)).call(this));
+    var _this = _possibleConstructorReturn(this, (PosContainer.__proto__ || Object.getPrototypeOf(PosContainer)).call(this, props));
+
+    _this.handleUpdateTransactionItem = function () {
+      return _this.__handleUpdateTransactionItem__REACT_HOT_LOADER__.apply(_this, arguments);
+    };
+
+    _this.handleWindowSizeChange = function () {
+      return _this.__handleWindowSizeChange__REACT_HOT_LOADER__.apply(_this, arguments);
+    };
+
+    _this.handleOnToggleSideNavClick = function () {
+      return _this.__handleOnToggleSideNavClick__REACT_HOT_LOADER__.apply(_this, arguments);
+    };
 
     _this.handleOnClickMenuItem = function () {
       return _this.__handleOnClickMenuItem__REACT_HOT_LOADER__.apply(_this, arguments);
@@ -4335,23 +4569,69 @@ var PosContainer = function (_Component) {
 
     var dummyObject = {};
     _this.state = {
-      menuObject: dummyObject
+      menuObject: dummyObject,
+      width: window.innerWidth, /**decide mobile width */
+      toggleSideNav: false
     };
 
     //setup bindings;
-    _this.handleUpdateTransactionItem = _this.handleUpdateTransactionItem.bind(_this);
+    //this.handleUpdateTransactionItem = this.handleUpdateTransactionItem.bind(this);
+    _this.handleOnToggleSideNavClick = _this.handleOnToggleSideNavClick.bind(_this);
+    //this.handleOnClickMenuItem = this.handleOnClickMenuItem.bind(this);
     return _this;
   }
 
   _createClass(PosContainer, [{
-    key: 'handleUpdateTransactionItem',
-    value: function handleUpdateTransactionItem(transactionItem) {
+    key: '__handleUpdateTransactionItem__REACT_HOT_LOADER__',
+    value: function __handleUpdateTransactionItem__REACT_HOT_LOADER__() {
+      return this.__handleUpdateTransactionItem__REACT_HOT_LOADER__.apply(this, arguments);
+    }
+  }, {
+    key: '__handleUpdateTransactionItem__REACT_HOT_LOADER__',
+    value: function __handleUpdateTransactionItem__REACT_HOT_LOADER__(transactionItem) {
+      console.log(">>> updating transaction item");
+      console.log(transactionItem);
       this.props.transactionActions.updateTransaction(transactionItem);
     }
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.transactionActions.getTransactions();
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      window.addEventListener('resize', this.handleWindowSizeChange);
+    }
+
+    // make sure to remove the listener
+    // when the component is not mounted anymore
+
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      window.removeEventListener('resize', this.handleWindowSizeChange);
+    }
+  }, {
+    key: '__handleWindowSizeChange__REACT_HOT_LOADER__',
+    value: function __handleWindowSizeChange__REACT_HOT_LOADER__() {
+      return this.__handleWindowSizeChange__REACT_HOT_LOADER__.apply(this, arguments);
+    }
+  }, {
+    key: '__handleWindowSizeChange__REACT_HOT_LOADER__',
+    value: function __handleWindowSizeChange__REACT_HOT_LOADER__() {
+      this.setState({ width: window.innerWidth });
+    }
+  }, {
+    key: '__handleOnToggleSideNavClick__REACT_HOT_LOADER__',
+    value: function __handleOnToggleSideNavClick__REACT_HOT_LOADER__() {
+      return this.__handleOnToggleSideNavClick__REACT_HOT_LOADER__.apply(this, arguments);
+    }
+  }, {
+    key: '__handleOnToggleSideNavClick__REACT_HOT_LOADER__',
+    value: function __handleOnToggleSideNavClick__REACT_HOT_LOADER__() {
+      console.log(">>> handleOnToggleSideNavClick");
+      this.setState({ toggleSideNav: !this.state.toggleSideNav });
     }
   }, {
     key: '__handleOnClickMenuItem__REACT_HOT_LOADER__',
@@ -4375,6 +4655,11 @@ var PosContainer = function (_Component) {
 
       console.log(">>> pringint menu items");
       console.log(menuItems);
+      var _state = this.state,
+          width = _state.width,
+          toggleSideNav = _state.toggleSideNav;
+
+      var isMobile = width <= 768;
 
       return _react2.default.createElement(
         'div',
@@ -4382,7 +4667,9 @@ var PosContainer = function (_Component) {
         _react2.default.createElement(_PosHomeLayout2.default, { menuObject: this.state.menuObject,
           onMenuClick: this.handleOnClickMenuItem,
           transactions: transactions,
-          onTransactionUpdate: this.handleUpdateTransactionItem
+          onTransactionUpdate: this.handleUpdateTransactionItem,
+          isMobile: isMobile,
+          toggleSideNav: this.state.toggleSideNav
         })
       );
     }
