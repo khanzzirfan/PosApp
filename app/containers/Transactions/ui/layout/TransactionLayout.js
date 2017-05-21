@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CheckoutCartComponent from 'containers/Transactions/ui/components/CheckoutCartComponent';
+import TransactionsTableComponent from 'containers/Transactions/ui/component/TransactionsTableComponent';
 import { FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 class TransactionLayout extends Component {
@@ -36,7 +36,7 @@ class TransactionLayout extends Component {
                             </InputGroup>
                         </FormGroup>
                         <FormGroup>
-                            <CheckoutCartComponent />
+                            <TransactionsTableComponent />
                         </FormGroup>
                     </div>
                 </div>
