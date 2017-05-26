@@ -63,17 +63,17 @@ class CheckoutCartItemComponent extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        // let transactionId = nextProps.transactionId;
-        // let itemPrice = nextProps.itemPrice;
-        // let itemQuantity = nextProps.itemQuantity;
-        // let itemName = nextProps.itemName;
+         let transactionId = nextProps.transactionId;
+         let itemPrice = nextProps.itemPrice;
+         let itemQuantity = nextProps.itemQuantity;
+         let itemName = nextProps.itemName;
 
-        //  this.setState({
-        //     transactionId: transactionId,
-        //     itemPrice: itemPrice,
-        //     itemQuantity: itemQuantity,
-        //     itemName: itemName
-        // });
+          this.setState({
+             transactionId: transactionId,
+             itemPrice: itemPrice,
+             itemQuantity: itemQuantity,
+             itemName: itemName
+         });
     }
 
     render() {
@@ -96,11 +96,24 @@ class CheckoutCartItemComponent extends Component {
             <div>
                 <a className="list-group-item">
                     <div className="row">
-                        <div className="col-lg-6 text-left">
+                        <div className="col-lg-4 text-left">
                             <span>{transactionId}. {itemName}</span>
                         </div>
-                        <div className="col-lg-6 text-right">
-                            <span>{price}</span>
+                         <div className="col-lg-1">
+                            <button type="button" className="btn btn-xs" onClick={this.onAddMenuItem}>
+                                <span className="fa fa-plus-square fa-1x"></span>
+                            </button>
+                        </div>
+                        <div className="col-lg-2 text-center">
+                            <span> x {this.state.itemQuantity} </span>
+                        </div>
+                        <div className="col-lg-1">
+                            <button type="button" className="btn btn-xs" onClick={this.onRemoveMenuItem}>
+                                <span className="fa fa-minus-square fa-1x"></span>
+                            </button>
+                        </div>
+                        <div className="col-lg-2 col-lg-offset-1 text-right">
+                            <span> {totalAmount} </span>
                         </div>
                     </div>
                     <div className="row">

@@ -32,10 +32,10 @@ class MainDetailComponent extends Component {
     /**constructs a menu item */
     createMenuComponent(item, index) {
         return (
-            <div key={index} className="col-lg-3 col-md-6">
-                <MenuItemComponent LinkText="Add to cart"
+            <div key={index} className="col-lg-3 col-md-4">
+                <MenuItemComponent LinkText="Add"
                     MenuText={item.itemName}
-                    MenuIconClass="fa fa-compass fa-5x"
+                    MenuIconClass="fa fa-compass fa-1x"
                     MenuColorClass="panel-primary"
                     MenuPrice={item.itemPrice}
                     onAddItemClick ={this.handleOnAddItem}/>
@@ -64,13 +64,13 @@ class MainDetailComponent extends Component {
 
         return (
             <div id="page-wrapper">
-                <div className="row">
-                    <div className="col-lg-8 col-md-6">
-                        <div className="row">
+                <div className="row row-inverse">
+                    <div className="col-lg-8 col-md-8">
+                        <div className="row row-inverse row-cols-padding">
                             {createMenuDetailComponent}
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
+                    <div className="col-lg-4 col-md-4">
                         <MainCheckoutComponent transactions ={transactions}
                             onTransactionUpdate = {this.handleOnTransactionUpdate}/>
                     </div>

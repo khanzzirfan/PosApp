@@ -114,6 +114,27 @@ class MainSideBarComponent extends Component {
                     },
                 ],
             },
+            {
+                icon: 'table', /*icon class name */
+                label: 'Category',
+                to: '#a-link',
+                Id:"category",
+                name:"Category"
+            },
+             {
+                icon: 'table', /*icon class name */
+                label: 'Items',
+                to: '#a-link',
+                Id:"items",
+                name:"items"
+            },
+            {
+                icon: 'table', /*icon class name */
+                label: 'Configuration',
+                to: '#a-link',
+                Id:"configuration",
+                name:"Configuration"
+            },
         ];
         const {isMobile, toggleSideNav} = this.props;
         console.log(">>> renering mobile version " + isMobile);

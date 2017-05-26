@@ -16,7 +16,7 @@ class TransactionContainer extends Component {
         <div className="container-wrapper">
           <AppContainer />
            <TransactionLayout 
-            />
+                transactions = {transactions}  />
         </div>
         );
     }

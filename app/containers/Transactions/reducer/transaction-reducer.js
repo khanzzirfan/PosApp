@@ -40,10 +40,10 @@ export default function TransactionReducer(state = initialState, action) {
             let menuName = action.transactionItem.menuName;
             let addTransactionItem = state.transactions.filter( e => e.menuName == menuName);
             if(addTransactionItem && addTransactionItem.length > 0){
-                addTransactionItem.quantity ++;
-                let transactionId = addTransactionItem.transactionId;
+                addTransactionItem[0].quantity ++;
+                let transactionId = addTransactionItem[0].transactionId;
                 filteredTransactions = state.transactions.filter( e => e.transactionId !== transactionId);
-                filteredTransactions.push(addTransactionItem);
+                filteredTransactions.push(addTransactionItem[0]);
             }
 
             else {
@@ -57,7 +57,8 @@ export default function TransactionReducer(state = initialState, action) {
 
             let orderedTransactions = _.orderBy(filteredTransactions, 'transactionId');
             return {
-                isLoading: true,
+                ...state,
+                isLoading: false,
                 transactions: orderedTransactions,
             }
         }

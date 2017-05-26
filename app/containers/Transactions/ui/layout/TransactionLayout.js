@@ -21,6 +21,9 @@ class TransactionLayout extends Component {
     }
 
     render() {
+        const {transactions}  = this.props;
+        console.log("printing transactions");
+        console.log(transactions);
         return (
             <div id="page-wrapper">
                 <div className="row">
@@ -36,7 +39,7 @@ class TransactionLayout extends Component {
                             </InputGroup>
                         </FormGroup>
                         <FormGroup>
-                            <TransactionsTableComponent />
+                            <TransactionsTableComponent  transactions = {transactions} />
                         </FormGroup>
                     </div>
                 </div>
@@ -47,6 +50,7 @@ class TransactionLayout extends Component {
 }
 
 TransactionLayout.propTypes = {
+    transactions: PropTypes.array,
     onMenuClick: PropTypes.func,
     toggleSideNav: PropTypes.bool,
 };
