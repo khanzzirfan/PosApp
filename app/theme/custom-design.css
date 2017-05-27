@@ -1,0 +1,13 @@
+.row.match-my-cols {
+    overflow: hidden; 
+}
+
+.row.match-my-cols [class*="col-"]{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+
+.row-cols-padding [class*="col-"]{
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
