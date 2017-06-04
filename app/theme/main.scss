@@ -9,6 +9,32 @@
         }
 }
 
+/** Fixed header and scollable body table **/
+.transaction-scollable{
+            height:200px !important;
+            overflow-y:auto;
+            width: 100%;
+            margin-bottom: 8px !important;
+            
+            table{
+                margin-bottom: 8px !important;
+            }
+
+            tbody{
+                height:320px !important;
+                overflow-y:auto;
+                width: 100%;
+                display: block;
+            }
+            thead{
+                display: block;
+                position: relative;
+            }
+}
+
+
+
+
 // html,
 // body {
 //   -webkit-overflow-scrolling: touch;
