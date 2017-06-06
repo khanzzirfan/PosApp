@@ -15,7 +15,7 @@
             overflow-y:auto;
             width: 100%;
             margin-bottom: 8px !important;
-            
+
             table{
                 margin-bottom: 8px !important;
             }
@@ -33,6 +33,32 @@
 }
 
 
+/*add right border on transaction layout*/
+.right-border{
+    border-right:2px solid #2e6da4;
+}
+
+.row-no-left-margin{
+    margin-left:0px;
+    padding-left:0px;
+}
+
+.btn-round-lg{
+    border-radius: 22.5px;
+}
+
+.btn-round{
+    border-radius: 17px;
+}
+.btn-round-sm{
+    border-radius: 15px;
+}
+
+.btn-round-xs{
+border-radius: 11px;
+padding-left: 10px;
+padding-right: 10px;
+}
 
 
 // html,

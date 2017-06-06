@@ -60,7 +60,7 @@ class TransactionSummaryComponent extends Component {
                 <div className="row row-inverse">
                     <div className="col-lg-offset-6 col-lg-6">
                         <div className="btn-toolbar" role="toolbar">
-                            <button type="button" className="btn btn-primary col-lg-3">Hide order</button>
+                            <button type="button" className="btn btn-primary col-lg-3">Hold order</button>
                             <button type="button" className="btn btn-primary col-lg-3">Cancel</button>
                             <button type="button" className="btn btn-primary col-lg-3">Save</button>
                         </div>

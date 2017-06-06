@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TransactionsTableComponent from 'containers/Transactions/ui/components/TransactionsTableComponent';
 import TransactionSummaryComponent from 'containers/Transactions/ui/components/TransactionSummaryComponent';
+import TransactionPaymentComponent from 'containers/Transactions/ui/components/TransactionPaymentComponent';
 import { FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 class TransactionLayout extends Component {
@@ -28,39 +29,32 @@ class TransactionLayout extends Component {
         return (
             <div id="page-wrapper">
                 <div className="row">
+                    {/*left side transactions component*/}
                     <div className="col-lg-8">
-                        <div className="form-group">
-                            <InputGroup>
-                                <FormControl type="text" placeholder="search/add items" />
-                                <InputGroup.Addon>
-                                    <button type="button" className="btn btn-xs">
-                                        <span className="fa fa-plus-square fa-1x"></span>
-                                    </button>
-                                </InputGroup.Addon>
-                            </InputGroup>
-                        </div>
-                    </div>
-                    <div className="col-lg-4">
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-lg-8">
-                        <div className="">
-                            <TransactionsTableComponent transactions={transactions} />
-                        </div>
-                    </div>
-                    <div className="col-lg-4">
-                        <div className="panel panel-default">
-                            <div className="panel-body">
-                                This is a Basic panel
+                        <div className="app-theme-main-right-border">
+                            <div className="form-group">
+                                <InputGroup>
+                                    <FormControl type="text" placeholder="search/add items" />
+                                    <InputGroup.Addon>
+                                        <button type="button" className="btn btn-xs">
+                                            <span className="fa fa-plus-square fa-1x"></span>
+                                        </button>
+                                    </InputGroup.Addon>
+                                </InputGroup>
                             </div>
+                            {/*Eof Search and add item*/}
+
+                            <TransactionsTableComponent transactions={transactions} />
+                            <TransactionSummaryComponent />
                         </div>
+
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-lg-8">
-                        <TransactionSummaryComponent />
+
+                    {/*Right side checkout component*/}
+                    <div className="col-lg-4 app-theme-main-row-no-left-margin">
+                        <TransactionPaymentComponent />
                     </div>
+
                 </div>
             </div>
         );
