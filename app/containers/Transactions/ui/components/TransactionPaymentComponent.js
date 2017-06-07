@@ -79,6 +79,7 @@ class TransactionPaymentComponent extends Component {
                         </div>
                     </div>
                 </div>
+
                 <div className="form-group">
                     <div className="row">
                         <div className="col-lg-offset-1">

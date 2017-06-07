@@ -21063,118 +21063,49 @@ var CheckoutCartItemComponent = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'list-group-item' },
                 _react2.default.createElement(
-                    'a',
-                    { className: 'list-group-item' },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'row' },
+                        { className: 'col-lg-5 text-left' },
                         _react2.default.createElement(
-                            'div',
-                            { className: 'col-lg-4 text-left' },
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                transactionId,
-                                '. ',
-                                itemName
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'col-lg-1' },
-                            _react2.default.createElement(
-                                'button',
-                                { type: 'button', className: 'btn btn-xs', onClick: this.onAddMenuItem },
-                                _react2.default.createElement('span', { className: 'fa fa-plus-square fa-1x' })
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'col-lg-2 text-center' },
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                ' x ',
-                                this.state.itemQuantity,
-                                ' '
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'col-lg-1' },
-                            _react2.default.createElement(
-                                'button',
-                                { type: 'button', className: 'btn btn-xs', onClick: this.onRemoveMenuItem },
-                                _react2.default.createElement('span', { className: 'fa fa-minus-square fa-1x' })
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'col-lg-2 col-lg-offset-1 text-right' },
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                ' ',
-                                totalAmount,
-                                ' '
-                            )
+                            'span',
+                            null,
+                            transactionId,
+                            '.',
+                            itemName
                         )
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'row' },
+                        { className: 'col-lg-4' },
                         _react2.default.createElement(
-                            'div',
-                            { className: 'col-xs-1' },
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                'Qty'
-                            )
+                            'button',
+                            { type: 'button', className: 'btn btn-xs', onClick: this.onAddMenuItem },
+                            _react2.default.createElement('span', { className: 'fa fa-plus-square fa-1x' })
                         ),
                         _react2.default.createElement(
-                            'div',
-                            { className: 'col-xs-1' },
-                            _react2.default.createElement(
-                                'button',
-                                { type: 'button', className: 'btn btn-xs', onClick: this.onAddMenuItem },
-                                _react2.default.createElement('span', { className: 'fa fa-plus-square fa-1x' })
-                            )
+                            'span',
+                            null,
+                            ' x ',
+                            this.state.itemQuantity,
+                            ' '
                         ),
                         _react2.default.createElement(
-                            'div',
-                            { className: 'col-xs-1' },
-                            _react2.default.createElement(
-                                'i',
-                                { className: 'fa fa-1x' },
-                                this.state.itemQuantity,
-                                ' '
-                            )
-                        ),
+                            'button',
+                            { type: 'button', className: 'btn btn-xs', onClick: this.onRemoveMenuItem },
+                            _react2.default.createElement('span', { className: 'fa fa-minus-square fa-1x' })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-lg-3 text-right' },
                         _react2.default.createElement(
-                            'div',
-                            { className: 'col-xs-1' },
-                            _react2.default.createElement(
-                                'button',
-                                { type: 'button', className: 'btn btn-xs', onClick: this.onRemoveMenuItem },
-                                _react2.default.createElement('span', { className: 'fa fa-minus-square fa-1x' })
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: ' text-right' },
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                _react2.default.createElement(
-                                    'i',
-                                    null,
-                                    'Amount ',
-                                    totalAmount
-                                )
-                            )
+                            'span',
+                            null,
+                            totalAmount
                         )
                     )
                 )
@@ -23536,6 +23467,12 @@ var _AppContainer = __webpack_require__("./components/common/AppContainer.js");
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
+var _transactionActions = __webpack_require__("./containers/Transactions/actions/transaction-actions.js");
+
+var TransactionActions = _interopRequireWildcard(_transactionActions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23554,6 +23491,11 @@ var TransactionContainer = function (_Component) {
   }
 
   _createClass(TransactionContainer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.transactionActions.getTransactions();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var transactions = this.props.transactions;
@@ -23579,14 +23521,14 @@ TransactionContainer.propTypes = {
 
 function mapState(state) {
   return {
-    tranactions: state.TransactionReducer.transactions
+    transactions: state.TransactionReducer.transactions
     // isLoading: state.PosReducer.isLoading,
   };
 }
 
 function mapDispatch(dispatch) {
   return {
-    //actions: bindActionCreators(TodoActions, dispatch)
+    transactionActions: (0, _redux.bindActionCreators)(TransactionActions, dispatch)
   };
 }
 
@@ -23722,6 +23664,529 @@ var _temp = function () {
 
 /***/ }),
 
+/***/ "./containers/Transactions/ui/components/TransactionPaymentComponent.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__("../node_modules/react/react.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__("../node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactBootstrap = __webpack_require__("../node_modules/react-bootstrap/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TransactionPaymentComponent = function (_Component) {
+    _inherits(TransactionPaymentComponent, _Component);
+
+    function TransactionPaymentComponent() {
+        _classCallCheck(this, TransactionPaymentComponent);
+
+        return _possibleConstructorReturn(this, (TransactionPaymentComponent.__proto__ || Object.getPrototypeOf(TransactionPaymentComponent)).apply(this, arguments));
+    }
+
+    _createClass(TransactionPaymentComponent, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'div',
+                    { className: 'panel panel-default' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'panel-body' },
+                        _react2.default.createElement(
+                            'form',
+                            null,
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'control-label' },
+                                    ' Customer '
+                                ),
+                                _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'name', placeholder: 'xyz' })
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'panel panel-default' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'panel-body' },
+                        _react2.default.createElement(
+                            'form',
+                            { className: 'form-horizontal' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'text-left control-label col-sm-6' },
+                                    ' Amount Tendered: '
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'col-sm-6' },
+                                    _react2.default.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        ' 50.99 '
+                                    )
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'form',
+                            { className: 'form-horizontal' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'text-left control-label col-sm-6' },
+                                    ' Discount (%): '
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'col-sm-6' },
+                                    _react2.default.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        ' 0.99 '
+                                    )
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'form',
+                            { className: 'form-horizontal' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'text-left control-label col-sm-6' },
+                                    ' Cash: '
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'col-sm-6' },
+                                    _react2.default.createElement('input', { type: 'number', className: 'form-control', id: 'cash', placeholder: '0.00' })
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'form',
+                            { className: 'form-horizontal' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'text-left control-label col-sm-6' },
+                                    ' Amount Due: '
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'col-sm-6' },
+                                    _react2.default.createElement(
+                                        'label',
+                                        { className: 'control-label' },
+                                        ' 0.99 '
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement('div', { className: 'col-lg-offset-1' }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-lg-11' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'btn-toolbar col-lg-offset-2', role: 'toolbar' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-primary col-lg-3  app-theme-main-btn-round' },
+                                    'Cash'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-primary col-lg-3 app-theme-main-btn-round' },
+                                    'Credit'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-primary col-lg-3 app-theme-main-btn-round' },
+                                    'Split'
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement('div', { className: 'col-lg-offset-1' }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-lg-11' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'btn-toolbar col-lg-offset-2', role: 'toolbar' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-primary col-lg-3 app-theme-main-btn-round' },
+                                    'Check'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-primary col-lg-3 app-theme-main-btn-round' },
+                                    'Gift Card'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-primary col-lg-3 app-theme-main-btn-round' },
+                                    'Credit+'
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement('div', { className: 'col-lg-offset-1' }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-lg-11' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'btn-toolbar col-lg-offset-2', role: 'toolbar' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-primary col-lg-3 app-theme-main-btn-round' },
+                                    'Check'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-primary col-lg-3 app-theme-main-btn-round' },
+                                    'Gift Card'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-primary col-lg-3 app-theme-main-btn-round' },
+                                    'Credit+'
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement('div', { className: 'col-lg-offset-1' }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-lg-11' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'btn-toolbar col-lg-offset-2', role: 'toolbar' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-success col-lg-11 app-theme-main-btn-round' },
+                                    'Sale Complete'
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return TransactionPaymentComponent;
+}(_react.Component);
+
+TransactionPaymentComponent.propTypes = {};
+
+var _default = TransactionPaymentComponent;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(TransactionPaymentComponent, 'TransactionPaymentComponent', 'C:/Github/iPos/app/containers/Transactions/ui/components/TransactionPaymentComponent.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Github/iPos/app/containers/Transactions/ui/components/TransactionPaymentComponent.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./containers/Transactions/ui/components/TransactionSummaryComponent.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__("../node_modules/react/react.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__("../node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TransactionSummaryComponent = function (_Component) {
+    _inherits(TransactionSummaryComponent, _Component);
+
+    function TransactionSummaryComponent() {
+        _classCallCheck(this, TransactionSummaryComponent);
+
+        return _possibleConstructorReturn(this, (TransactionSummaryComponent.__proto__ || Object.getPrototypeOf(TransactionSummaryComponent)).apply(this, arguments));
+    }
+
+    _createClass(TransactionSummaryComponent, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row row-inverse' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-lg-6' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'control-label col-sm-4', 'for': 'email' },
+                                'Sub Total:'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'col-sm-8' },
+                                _react2.default.createElement(
+                                    'span',
+                                    null,
+                                    '7.50'
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-lg-6' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'control-label col-sm-4', 'for': 'email' },
+                                'Total:'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'col-sm-8' },
+                                _react2.default.createElement(
+                                    'span',
+                                    null,
+                                    '7.50'
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row row-inverse' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-lg-6' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'control-label col-sm-4', 'for': 'email' },
+                                'Discount:'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'col-sm-8' },
+                                _react2.default.createElement(
+                                    'span',
+                                    null,
+                                    '1.50'
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row row-inverse' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-lg-6' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'control-label col-sm-4', 'for': 'email' },
+                                'Tax:'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'col-sm-8' },
+                                _react2.default.createElement(
+                                    'span',
+                                    null,
+                                    '1.24'
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-lg-6' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'control-label col-sm-4', 'for': 'email' },
+                                'Balance:'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'col-sm-8' },
+                                _react2.default.createElement(
+                                    'span',
+                                    null,
+                                    '3.24'
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row row-inverse' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-lg-offset-6 col-lg-6' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'btn-toolbar', role: 'toolbar' },
+                            _react2.default.createElement(
+                                'button',
+                                { type: 'button', className: 'btn btn-primary col-lg-3' },
+                                'Hold order'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { type: 'button', className: 'btn btn-primary col-lg-3' },
+                                'Cancel'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { type: 'button', className: 'btn btn-primary col-lg-3' },
+                                'Save'
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return TransactionSummaryComponent;
+}(_react.Component);
+
+TransactionSummaryComponent.propTypes = {};
+
+var _default = TransactionSummaryComponent;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(TransactionSummaryComponent, 'TransactionSummaryComponent', 'C:/Github/iPos/app/containers/Transactions/ui/components/TransactionSummaryComponent.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Github/iPos/app/containers/Transactions/ui/components/TransactionSummaryComponent.js');
+}();
+
+;
+
+/***/ }),
+
 /***/ "./containers/Transactions/ui/components/TransactionsTableComponent.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23773,43 +24238,78 @@ var TransactionsTableComponent = function (_Component) {
     }, {
         key: '__createTransactionItemRow__REACT_HOT_LOADER__',
         value: function __createTransactionItemRow__REACT_HOT_LOADER__(transactionItem) {
+            console.log(transactionItem);
+            var menuPrice = transactionItem.menuPrice;
+            var quantity = transactionItem.quantity;
+            var subTotal = menuPrice * quantity;
             return _react2.default.createElement(
                 'tr',
-                null,
+                { key: transactionItem.transactionId },
                 _react2.default.createElement(
                     'td',
-                    null,
-                    ""
+                    { className: 'col-xs-1' },
+                    transactionItem.transactionId
                 ),
                 _react2.default.createElement(
                     'td',
-                    null,
-                    'Mark'
+                    { className: 'col-xs-1' },
+                    transactionItem.menuName
                 ),
                 _react2.default.createElement(
                     'td',
-                    null,
-                    'Otto'
+                    { className: 'col-xs-1' },
+                    menuPrice
                 ),
                 _react2.default.createElement(
                     'td',
-                    null,
-                    '@mdo'
+                    { className: 'col-xs-1 text-left' },
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'button', className: 'btn btn-xs', onClick: this.onAddMenuItem },
+                        _react2.default.createElement('span', { className: 'fa fa-plus-square fa-1x' })
+                    ),
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        ' ',
+                        quantity,
+                        ' '
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'button', className: 'btn btn-xs', onClick: this.onRemoveMenuItem },
+                        _react2.default.createElement('span', { className: 'fa fa-minus-square fa-1x' })
+                    )
+                ),
+                _react2.default.createElement(
+                    'td',
+                    { className: 'col-xs-1 text-center' },
+                    '0'
+                ),
+                _react2.default.createElement(
+                    'td',
+                    { className: 'col-xs-1 text-center col-xs-offset-6' },
+                    subTotal
                 )
             );
         }
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var transactions = this.props.transactions;
 
+            var transactionDetails = transactions && transactions.map(function (e) {
+                return _this2.createTransactionItemRow(e);
+            });
 
             return _react2.default.createElement(
                 'div',
                 { className: 'table-responsive' },
                 _react2.default.createElement(
                     'table',
-                    { className: 'table table-striped' },
+                    { className: 'table app-theme-main-transaction-scollable' },
                     _react2.default.createElement(
                         'thead',
                         null,
@@ -23818,37 +24318,42 @@ var TransactionsTableComponent = function (_Component) {
                             null,
                             _react2.default.createElement(
                                 'th',
-                                null,
+                                { className: 'col-xs-1 ' },
                                 '#'
                             ),
                             _react2.default.createElement(
                                 'th',
-                                null,
+                                { className: 'col-xs-1' },
                                 'Name'
                             ),
                             _react2.default.createElement(
                                 'th',
-                                null,
+                                { className: 'col-xs-1' },
                                 'Price'
                             ),
                             _react2.default.createElement(
                                 'th',
-                                null,
+                                { className: 'col-xs-1' },
                                 'Qty.'
                             ),
                             _react2.default.createElement(
                                 'th',
-                                null,
+                                { className: 'col-xs-1' },
                                 'Discount %'
                             ),
                             _react2.default.createElement(
                                 'th',
-                                null,
+                                { className: 'col-xs-1 col-xs-offset-6' },
                                 'Sub Total'
                             )
                         )
                     ),
-                    _react2.default.createElement('tbody', null)
+                    _react2.default.createElement(
+                        'tbody',
+                        null,
+                        transactionDetails,
+                        transactionDetails
+                    )
                 )
             );
         }
@@ -23902,6 +24407,14 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 var _TransactionsTableComponent = __webpack_require__("./containers/Transactions/ui/components/TransactionsTableComponent.js");
 
 var _TransactionsTableComponent2 = _interopRequireDefault(_TransactionsTableComponent);
+
+var _TransactionSummaryComponent = __webpack_require__("./containers/Transactions/ui/components/TransactionSummaryComponent.js");
+
+var _TransactionSummaryComponent2 = _interopRequireDefault(_TransactionSummaryComponent);
+
+var _TransactionPaymentComponent = __webpack_require__("./containers/Transactions/ui/components/TransactionPaymentComponent.js");
+
+var _TransactionPaymentComponent2 = _interopRequireDefault(_TransactionPaymentComponent);
 
 var _reactBootstrap = __webpack_require__("../node_modules/react-bootstrap/es/index.js");
 
@@ -23971,28 +24484,34 @@ var TransactionLayout = function (_Component) {
                         'div',
                         { className: 'col-lg-8' },
                         _react2.default.createElement(
-                            _reactBootstrap.FormGroup,
-                            null,
+                            'div',
+                            { className: 'app-theme-main-right-border' },
                             _react2.default.createElement(
-                                _reactBootstrap.InputGroup,
-                                null,
-                                _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', placeholder: 'search/add items' }),
+                                'div',
+                                { className: 'form-group' },
                                 _react2.default.createElement(
-                                    _reactBootstrap.InputGroup.Addon,
+                                    _reactBootstrap.InputGroup,
                                     null,
+                                    _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', placeholder: 'search/add items' }),
                                     _react2.default.createElement(
-                                        'button',
-                                        { type: 'button', className: 'btn btn-xs' },
-                                        _react2.default.createElement('span', { className: 'fa fa-plus-square fa-1x' })
+                                        _reactBootstrap.InputGroup.Addon,
+                                        null,
+                                        _react2.default.createElement(
+                                            'button',
+                                            { type: 'button', className: 'btn btn-xs' },
+                                            _react2.default.createElement('span', { className: 'fa fa-plus-square fa-1x' })
+                                        )
                                     )
                                 )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _reactBootstrap.FormGroup,
-                            null,
-                            _react2.default.createElement(_TransactionsTableComponent2.default, { transactions: transactions })
+                            ),
+                            _react2.default.createElement(_TransactionsTableComponent2.default, { transactions: transactions }),
+                            _react2.default.createElement(_TransactionSummaryComponent2.default, null)
                         )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-lg-4 app-theme-main-row-no-left-margin' },
+                        _react2.default.createElement(_TransactionPaymentComponent2.default, null)
                     )
                 )
             );
